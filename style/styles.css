@@ -80,15 +80,27 @@ nav {
 
 .activebox {
     background-color: #9D9D9E;
-    padding:5px;
-    color:blue;
+    padding:10px;
     border-radius: 5px;
+}
+
+.side-navigation-list li {
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+#side-navigation-list-font{
+    font-weight: bold;
 }
 
 .disabled {
     pointer-events: none;
     cursor: default;
-  }
+}
+
+.activebox-font-color{
+    color:white;
+}
 
 
 
@@ -119,7 +131,7 @@ nav {
 
 #navbarBasicExample #list-type .selection:hover {
     background-color: #9D9D9E;
-    padding:3px;
+    padding:5px;
     color:white;
     border-radius: 5px;
 

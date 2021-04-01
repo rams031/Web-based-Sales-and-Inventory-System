@@ -9,18 +9,19 @@
     
 </head>
 
-<body class="hrportal-reports">
-    <nav class="navbar" role="navigation" aria-label="main navigation" >
+<body class="adminportal-dashboard">
+    <nav class="navbar" role="navigation" aria-label="main navigation" style="width: 100%;" >
     <?php include "topnavigation.php" ?>
     </nav>
 
     <div class="columns">
+        
         <div id="sidenavcustom" class="column is-narrow navigationbar">
         <?php include "sidenavigation.php" ?>
         </div>
 
         <div class="column" style="margin:20px;">
-        Reports
+        Admin Dashboard
         </div>
     </div>
 

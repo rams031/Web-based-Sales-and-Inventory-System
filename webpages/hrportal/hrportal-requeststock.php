@@ -9,7 +9,7 @@
     
 </head>
 
-<body class="hrportal-transaction">
+<body class="hrportal-requeststock">
     <nav class="navbar" role="navigation" aria-label="main navigation" >
     <?php include "topnavigation.php" ?>
     </nav>

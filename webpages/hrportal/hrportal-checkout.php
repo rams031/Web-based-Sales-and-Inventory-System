@@ -9,7 +9,7 @@
     
 </head>
 
-<body class="hrportal-dashboard">
+<body class="hrportal-checkout">
     <nav class="navbar" role="navigation" aria-label="main navigation" style="width: 100%;" >
     <?php include "topnavigation.php" ?>
     </nav>
@@ -18,7 +18,7 @@
         <div id="sidenavcustom" class="column is-narrow navigationbar">
         <?php include "sidenavigation.php" ?>
         </div>
-
+        
         <div class="column" style="margin:20px;">
         Checkout
         </div>
