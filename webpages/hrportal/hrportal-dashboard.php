@@ -19,11 +19,11 @@
         <?php include "sidenavigation.php" ?>
         </div>
 
-        <div class="column">
-
+        <div class="column" style="margin:20px;">
+        Dashboard
         </div>
     </div>
-    
+
     <?php include "scriptlinks.php" ?>
 </body>
 

@@ -6,8 +6,16 @@
       { $hostactive = 'Dashboard';}
       else if ($host == ''. $urlshort .'hrportal-checkout.php')
       { $hostactive = 'Checkout';}
-      ?>
+      else if ($host == ''. $urlshort .'hrportal-transaction.php')
+      { $hostactive = 'Transaction';}
+      if($host == ''. $urlshort .'hrportal-branchstock.php') 
+      { $hostactive = 'Branchstock';}
+      else if ($host == ''. $urlshort .'hrportal-reports.php')
+      { $hostactive = 'Reports';}
+      else if ($host == ''. $urlshort .'hrportal-requeststock.php')
+      { $hostactive = 'Requeststock';}
 ?>
+
 
 <aside id="sidenav" class="menu">
     <div id="navbarBasicExample" class="navbar-menu is-shadowless" style="background-color: #F2F2F2;">
@@ -51,9 +59,8 @@
                         </span>
                     </a>
                 </li>
-
-                <li class="Transactions" >
-                    <a href="">
+                <li class="<?php if ($hostactive != 'Transaction') { echo "selection"; }  ?>">
+                    <a class="<?php if ($hostactive == 'Transaction') { echo "activebox disable"; } else { echo "selection"; } ?>"href="hrportal-transaction.php">
                         <span class="icon-text">
                             <span class="icon">
                                 <i class="fas fa-file-invoice-dollar"></i>
@@ -67,8 +74,8 @@
                     Inventory
                 </p>
 
-                <li class="Branchstock" >
-                    <a class="is-active" href="">
+                <li class="<?php if ($hostactive != 'Branchstock') { echo "selection"; }  ?>">
+                    <a class="<?php if ($hostactive == 'Branchstock') { echo "activebox disable"; } else { echo "selection"; } ?>"href="hrportal-branchstock.php">
                         <span class="icon-text">
                             <span class="icon">
                                 <i class="fas fa-warehouse"></i>
@@ -78,8 +85,8 @@
                     </a>
                 </li>
 
-                <li class="Requeststock" >
-                    <a href="">
+                <li class="<?php if ($hostactive != 'Requeststock') { echo "selection"; }  ?>">
+                    <a class="<?php if ($hostactive == 'Requeststock') { echo "activebox disable"; } else { echo "selection"; } ?>"href="hrportal-requeststock.php">
                         <span class="icon-text">
                             <span class="icon">
                                 <i class="fas fa-boxes"></i>
@@ -93,8 +100,8 @@
                     Documents
                 </p>
 
-                <li class="Reports" >
-                    <a href="">
+                <li class="<?php if ($hostactive != 'Reports') { echo "selection"; }  ?>">
+                    <a class="<?php if ($hostactive == 'Reports') { echo "activebox disable"; } else { echo "selection"; } ?>"href="hrportal-reports.php">
                         <span class="icon-text">
                             <span class="icon">
                                 <i class="fas fa-file-alt"></i>

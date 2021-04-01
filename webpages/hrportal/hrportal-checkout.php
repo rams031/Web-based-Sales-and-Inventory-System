@@ -19,12 +19,10 @@
         <?php include "sidenavigation.php" ?>
         </div>
 
-        <div class="column">
-
+        <div class="column" style="margin:20px;">
+        Checkout
         </div>
     </div>
-
-    <script src="../../api/jquery/dist/jquery.min.js"></script>
 
     <?php include "scriptlinks.php" ?>
 </body>
