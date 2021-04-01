@@ -26,6 +26,7 @@
 
     <script src="../../api/jquery/dist/jquery.min.js"></script>
 
+    <?php include "scriptlinks.php" ?>
 </body>
 
 <script>

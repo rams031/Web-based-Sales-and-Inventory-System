@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-content">
                 <figure id="homepage-icon" class="image">
-                    <img class=" is-centered" src="../assets/icon.png">
+                    <img class=" is-centered" src="../assets/icon.PNG">
                 </figure>
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
