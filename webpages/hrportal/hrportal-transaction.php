@@ -1,39 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php include "header.php" ?>
+<!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "headlinks.php" ?>
-    
-</head>
+<!-- TRANSACTION -->
+<div class="columns">
 
-<body class="hrportal-transaction">
-    <nav class="navbar" role="navigation" aria-label="main navigation" >
-    <?php include "topnavigation.php" ?>
-    </nav>
-
-    <div class="columns">
-        <div id="sidenavcustom" class="column is-narrow navigationbar">
+    <div id="sidenavcustom" class="column is-narrow navigationbar">
         <?php include "sidenavigation.php" ?>
-        </div>
+        <!-- sidenavigation.php / d2 ung tab sa leftside -->
+    </div>
 
-        <div class="column" style="margin:20px;">
-        Transaction
+    <div class="column is-10">
+        <div class="rows card animate__animated animate__fadeInDown">
+
+
+            <div class="row is-full">
+                <span class="icon">
+                    <i class="fas fa-file-invoice-dollar fa-2x"></i>
+                </span>
+                <span class="portal-font is-size-4">Transaction</span>
+            </div>
+            <div class="row is-full">
+                dito magcocode
+                <!-- d2 kanalang mag code -->
+            </div>
+
+
         </div>
     </div>
 
-    <?php include "scriptlinks.php" ?>
-</body>
+</div>-
+
+<?php include "footer.php" ?>
 
 <script>
-$(document).ready(function() {
-    $(".navbar-burger").click(function() {
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
+    $(document).ready(function() {
+        $(".navbar-burger").click(function() {
+            $(".navbar-burger").toggleClass("is-active");
+            $(".navbar-menu").toggleClass("is-active");
+        });
     });
-});
 </script>
 
 </html>

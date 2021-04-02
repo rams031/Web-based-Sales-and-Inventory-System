@@ -20,9 +20,14 @@
         <?php include "sidenavigation.php" ?>
         </div>
 
-        <div class="column" style="margin:20px;">
-        Admin Inventory
+        <div class="column is-10">
+            <div class="rows">
+                <div class="row is-full">
+                Admin Inventory
+                </div>
+            </div>
         </div>
+
     </div>
 
     <?php include "scriptlinks.php" ?>

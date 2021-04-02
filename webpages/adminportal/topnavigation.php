@@ -1,3 +1,4 @@
+<?php include "../../database/dbsql.php" ?>
 <div class="navbar-brand">
     <a href="http://localhost/pos/webpages/hrportal/hrportal-dashboard.php">
         <img id="ajficon" src="../../assets//icon.PNG" width=150 alt="AJF ICON">

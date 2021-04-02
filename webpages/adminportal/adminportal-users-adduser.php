@@ -9,56 +9,35 @@
 
 </head>
 
-<body class="adminportal-users">
+<body class="adminportal-users-adduser">
     <nav class="navbar" role="navigation" aria-label="main navigation" style="width: 100%;">
         <?php include "topnavigation.php" ?>
     </nav>
 
     <div class="columns">
-
         <div id="sidenavcustom" class="column is-narrow navigationbar">
             <?php include "sidenavigation.php" ?>
         </div>
 
-        <div class="column is-10">
+        <div class="column is-10 ">
             <div class="rows card animate__animated animate__fadeInDown">
                 <div class="row is-full">
                     <div class="columns">
-                        <div class="column is-11">
+                        <div class="column">
                             <span class="icon">
-                                <i class="fas fa-user fa-2x"></i>
+                                <i class="fas fa-user-plus fa-2x"></i>
                             </span>
-                            <span class="portal-font is-size-4">Manage Users</span>
+                            <span class="portal-font is-size-4 has-text-left">Add New Users</span>
                         </div>
                         <div class="column">
-                            <div class="buttons">
-                                <a class="button is-light is-size-6" href="adminportal-users-adduser.php">Add New User</a>
-                            </div>
+
                         </div>
                     </div>
                 </div>
 
                 <div class="row is-full">
-                    <div class="columns">
-                        <div class="column is-12">
-                            <table class="display">
-                                <thead>
-                                    <tr>
-                                        <th>Column 1</th>
-                                        <th>Column 2</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Row 1 Data 1</td>
-                                        <td>dghdfhdfh</td>
-                                    </tr>
-                                    <tr>
-                                        <td>yuiyuiyui</td>
-                                        <td>dfgdfg</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="columns ">
+                        <div class="column">
                         </div>
                     </div>
                 </div>
