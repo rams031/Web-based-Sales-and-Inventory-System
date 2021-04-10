@@ -17,6 +17,14 @@ body,
     background-color: #F7F7F7;
 }
 
+.swal-footer {
+    background-color: rgb(245, 248, 250);
+    margin-top: 32px;
+    border-top: 1px solid #E9EEF1;
+    overflow: hidden;
+}
+
+
 .card {
     border-radius: 7px;
 }
@@ -81,8 +89,7 @@ nav {
 
 
 .activebox {
-    background-color: #9D9D9E;
-    padding:7px;
+    background-color: #706CF1;
     margin-top:10px;
     border-radius: 5px;
 }
@@ -94,6 +101,8 @@ nav {
     border-radius: 5px;
 }
 
+
+  
 .rows{
     display: flex;
     flex-direction: column;
@@ -105,8 +114,8 @@ nav {
 } 
 
 .sidenav-droplist {
-    margin-left:20px;
 }
+
 
 #sidenavcustom {
     margin:10px;
@@ -115,8 +124,13 @@ nav {
 
 .portal-font{
     font-weight: bold;
-    padding:10px;
+    margin:20px;
+
     
+}
+.portal-font-title {
+   
+
 }
 
 .side-navigation-list li {
@@ -165,10 +179,13 @@ nav {
 
 #navbarBasicExample #list-type .selection:hover {
     background-color: #9D9D9E;
-    padding: 1px;
     color:white;
     border-radius: 5px;
 
+}
+
+.menu-list {
+    margin: -10px;
 }
 
 
