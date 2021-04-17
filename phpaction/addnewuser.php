@@ -12,10 +12,26 @@
 
     $insert_sales = (
         "INSERT INTO 
-        `tbl_users` 
-        (`username`, `userpassword`, `datecreated`, `contacts`, `usertype`, `branchid`, `firstname`, `lastname`, `gender`)
-        VALUES 
-        ('$username',MD5('$userpassword'),CURDATE(),'$usercontact','$usertype',$userbranch,'$firstname','$lastname','$usergender')"
+            `tbl_users` (
+            `username`, 
+            `userpassword`, 
+            `datecreated`, 
+            `contacts`, 
+            `usertype`, 
+            `branchid`, 
+            `firstname`, 
+            `lastname`, 
+            `gender`)
+        VALUES (
+            '$username',
+            '$userpassword',
+             CURDATE(),
+            '$usercontact',
+            '$usertype',
+            '$userbranch',
+            '$firstname',
+            '$lastname',
+            '$usergender')"
     );
 
     $insert_admin = (
@@ -23,7 +39,7 @@
         `tbl_users` 
         (`username`, `userpassword`, `datecreated`, `contacts`, `usertype`, `branchid`, `firstname`, `lastname`, `gender`)
         VALUES 
-        ('$username',MD5('$userpassword'),CURDATE(),'$usercontact','$usertype',NULL,'$firstname','$lastname','$usergender')"
+        ('$username','$userpassword',CURDATE(),'$usercontact','$usertype',NULL,'$firstname','$lastname','$usergender')"
     );
     
     if ($usertype  == 'admin') { 

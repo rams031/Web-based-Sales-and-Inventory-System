@@ -14,37 +14,42 @@
                 <figure id="homepage-icon" class="image">
                     <img class=" is-centered" src="../assets/icon.PNG">
                 </figure>
-                <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="email" placeholder="Email">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="password" placeholder="Password">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                    </p>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <label class="checkbox">
-                            <input type="checkbox">
-                            <small> Remember me</small>
-                        </label>
+                <form>
+                    <article class="message is-danger">
+                        <div class="message-body">
+                            The username or password you entered is <strong>incorrect</strong>.
+                        </div>
+                    </article>
+                    <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                            <input id="username" name="username" class="input" type="text" placeholder="Username" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </p>
                     </div>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <button class="button ">
-                            Login
-                        </button>
-                    </p>
-                </div>
+                    <div class="field">
+                        <p class="control has-icons-left">
+                            <input id="userpassword" name="userpassword" class="input" type="password" placeholder="Password" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <label class="checkbox">
+                                <input name="cookie" id="cookie" value="yes" type="checkbox">
+                                <small> Remember me</small>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-right">
+                        <p class="control">
+                            <button class="button is-light" id="login" name="login" value="Sign in" type="submit">Sign in</button>
+                        </p>
+                    </div>
+                </form>
             </div>
 
         </div>
@@ -52,3 +57,45 @@
 </body>
 
 </html>
+<?php include "footer.php" ?>
+<!-- header.php / nanjan ung header natin-->
+
+<script>
+    $(document).ready(function() {
+        $('.message').hide();
+        $('form').on('submit', function(event) {
+            event.preventDefault();
+            console.log($('form').serialize())
+
+            $.ajax({
+                type: 'POST',
+                url: '../phpaction/userlogin.php',
+                data: $('form').serialize(),
+                success: function(data) {
+                    console.log(data)
+                    if (data == "admin") {
+                        $('#login').addClass("is-loading");
+                        setTimeout(function() {
+                            top.location.href = "./adminportal/adminportal-branch.php"
+                        }, 2000);
+                        
+                    }
+                    if (data == "sales") {
+                        console.log("sales")
+                        $('#login').addClass("is-loading");
+                        setTimeout(function() {
+                        top.location.href = "./salesportal/salesportal-dashboard.php"
+                        }, 2000);
+                    }
+                    if (data == "error") {
+                        $('.message').show(500);
+                        $('#username').addClass("is-danger");
+                        $('#userpassword').addClass("is-danger");
+                        console.log(data)
+                    }
+
+                },
+            });
+        });
+    });
+</script>

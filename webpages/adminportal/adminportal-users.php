@@ -1,81 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include "header.php";
+$user_query = ("SELECT * FROM `tbl_users`");
+$data = mysqli_query($conn, $user_query);
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "headlinks.php" ?>
+<div class="columns">
 
-</head>
+    <div id="sidenavcustom" class="column is-narrow navigationbar">
+        <?php include "sidenavigation.php" ?>
+    </div>
 
-<body class="adminportal-users">
-    <nav class="navbar" role="navigation" aria-label="main navigation" style="width: 100%;">
-        <?php include "topnavigation.php" ?>
-    </nav>
+    <div class="column is-10">
+        <div class="rows card is-shadowless animate__animated animate__fadeInDown">
 
-    <div class="columns">
-
-        <div id="sidenavcustom" class="column is-narrow navigationbar">
-            <?php include "sidenavigation.php" ?>
-        </div>
-
-        <div class="column is-10">
-            <div class="rows card animate__animated animate__fadeInDown">
-                <div class="row is-full">
-                    <div class="columns">
-                        <div class="column is-11">
-                            <span class="icon">
-                                <i class="fas fa-user fa-2x"></i>
-                            </span>
-                            <span class="portal-font is-size-4">Manage Users</span>
-                        </div>
-                        <div class="column">
-                            <div class="buttons">
-                                <a class="button is-light is-size-6" href="adminportal-users-adduser.php">Add New User</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row is-full">
-                    <div class="columns">
-                        <div class="column is-12">
-                            <table class="display">
-                                <thead>
-                                    <tr>
-                                        <th>Column 1</th>
-                                        <th>Column 2</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Row 1 Data 1</td>
-                                        <td>dghdfhdfh</td>
-                                    </tr>
-                                    <tr>
-                                        <td>yuiyuiyui</td>
-                                        <td>dfgdfg</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="row is-full">
+                <div class="columns">
+                <div class="column">                        
+                    <div style="margin-bottom:50px;">
+                        <span class="icon">
+                            <i class="fas fa-user fa-2x"></i>
+                        </span>
+                        <span class="portal-font">Manage Users</span></div>
+                    <div class="column">
+                        <table class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Username</th>
+                                    <th>Gender</th>
+                                    <th>User Role</th>
+                                    <th>Branch</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+                                <input type="hidden" value="<?php echo $row["userid"]; ?>" id="userid">
+                                <tr>
+                                    <td><?php echo ($row["firstname"] . " " .  $row["lastname"]) ?></td>
+                                    <td><?php echo $row["contacts"]; ?></td>
+                                    <td><?php echo $row["username"]; ?></td>
+                                    <td><?php echo $row["gender"]; ?></td>
+                                    <td><?php echo $row["usertype"]; ?></td>
+                                    <td><?php echo $row["branchid"]; ?></td>
+                                    <td>
+                                        <a href='adminportal-users-edituser.php?userid=<?php echo $row["jobid"]; ?>' class="button is-light is-small">
+                                            Edit Account
+                                        </a>
+                                        <a onclick=confirmDelete(<?php echo $row["jobid"]; ?>) class="button is-light is-small">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 
-    <?php include "scriptlinks.php" ?>
+<?php include "scriptlinks.php" ?>
 </body>
 
 <script type="text/javascript">
-    $('.display').DataTable();
-</script>
+    $('.display').DataTable({ responsive: true });
 
-<script>
     $(document).ready(function() {
         $(".navbar-burger").click(function() {
             $(".navbar-burger").toggleClass("is-active");

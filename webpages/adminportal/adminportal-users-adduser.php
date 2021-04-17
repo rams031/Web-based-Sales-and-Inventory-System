@@ -10,18 +10,18 @@
     </div>
 
     <div class="column is-10 ">
-        <div class="rows card animate__animated animate__fadeInDown">
-            <div class="row is-full">
+        <div class="rows card is-shadowless animate__animated animate__fadeInDown">
+            <div class="row">
                 <div class="columns">
-                    <div class="column portal-font-title" style="margin-left:10px;">
+                    <div class="column" style="margin-left:10px;">
                         <span class="icon">
                             <i class="fas fa-user-plus fa-2x"></i>
                         </span>
-                        <span class="portal-font is-size-4 has-text-left">Add New Users</span>
+                        <span class="portal-font  has-text-left">Add New Users</span>
                     </div>
                 </div>
             </div>
-            <div class="row is-full">
+            <div class="row">
                 <form id="Addnewuser-form">
                     <div class="columns">
                         <div class="column">
@@ -48,6 +48,8 @@
                                 <div class="control">
                                     <input name="username" id="username" class="input" type="text" placeholder="Username" required>
                                 </div>
+                                <p id="available" class="help is-success">This username is Available</p>
+                                <p id="existing" class="help is-danger">This username is Existing</p>
                             </div>
                         </div>
                         <div class="column">
@@ -116,8 +118,6 @@
                                             <input name="usercontact" id="usercontact" type="tel" maxlength="11" class="input" placeholder="Phone Number" required>
                                         </p>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -142,69 +142,84 @@
 <!-- header.php / nanjan ung header natin-->
 
 <script>
-    $(document).ready(function() {
-        $(".Dropdown-usertype").hide();
-
-        $("#usertype").change(function() {
-            console.log($("#usertype").val())
-            if ($("#usertype").val() == "sales") {
-                $(".Dropdown-usertype").show(500);
-                $("#userbranch").attr('required', 'required')
-            } else {
-                $(".Dropdown-usertype").hide(500);
-                $("#userbranch").removeAttr('required');
+$(document).ready(function() {
+    $(".Dropdown-usertype").hide();
+    $("#available").hide();
+    $("#existing").hide();
+    $('#Submit').prop("disabled",true);
+    $("#usertype").change(function() {
+        console.log($("#usertype").val())
+        if ($("#usertype").val() == "sales") {
+            $(".Dropdown-usertype").show(500);
+            $("#userbranch").attr('required', 'required')
+        } else {
+            $(".Dropdown-usertype").hide(500);
+            $("#userbranch").removeAttr('required');
+        }
+    });
+    $(".navbar-burger").click(function() {
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+    });
+    $("#username").bind('input', function() {
+        var username = $("#username").val();
+        $.ajax({
+            type: 'POST',
+            url: '../../phpaction/username-validation.php',
+            data: {
+                username: username
+            },
+            success: function(data) {
+                console.log(data)
+                if (username === "") {
+                    $("#available").hide();
+                    $("#existing").hide();
+                    $("#username").removeClass("is-success");
+                    $("#username").removeClass("is-danger");
+                }
+                else {
+                    if (data === "existing") {
+                        $('#Submit').prop("disabled",true);
+                        $("#available").hide();
+                        $("#existing").show();
+                        $("#username").removeClass("is-success").addClass("is-danger");
+                    } else if (data === "available") {
+                        $('#Submit').prop("disabled",false);
+                        $("#existing").hide();
+                        $("#available").show();
+                        $("#username").removeClass("is-danger").addClass("is-success");
+                        
+                    }
+                }
             }
         });
-
-        $(".navbar-burger").click(function() {
-            $(".navbar-burger").toggleClass("is-active");
-            $(".navbar-menu").toggleClass("is-active");
-        });
-
-        //$('form').bind('click', function(event) {
-        //
-        //    event.preventDefault();
-        //    console.log($('form').serialize())
-        //    if ($("#userbranch").val() == "") { console.log("ndfgdfgull")}
-        //
-        //    $.ajax({
-        //        type: 'POST',
-        //        url: '../../phpaction/addnewuser.php',
-        //        data: $('form').serialize(),
-        //        success: function(data) {
-        //            console.log(data)
-        //        }
-        //    });
-        //});
-
-        $('form').on('submit', function(event) {
-
-            event.preventDefault();
-            console.log($('form').serialize())
-
-            $.ajax({
-                type: 'POST',
-                url: '../../phpaction/addnewuser.php',
-                data: $('form').serialize(),
-                success: function(data) {
-                    if (data === "success") {
-                        swal("User Data Saved", "Succesfully", "success", {
-                            buttons: false,
-                            timer: 4000,
-                            closeOnClickOutside: false
-                        }), setTimeout(function() {
-                            top.location.href = "adminportal-users.php"
-                        }, 2000);
-                    } else {
-                        swal("Database Error", "Make sure the input is correct", "error")
-                        console.log(data)
-                    }
-                },
-            });
-
-        });
-
     });
+    $('form').on('submit', function(event) {
+        event.preventDefault();
+        console.log($('form').serialize())
+        $.ajax({
+            type: 'POST',
+            url: '../../phpaction/addnewuser.php',
+            data: $('form').serialize(),
+            success: function(data) {
+                if (data === "success") {
+                    swal("User Data Saved", "Succesfully", "success", {
+                        closeOnEsc: false,
+                        closeOnClickOutside: false,
+                        buttons: false,
+                        timer: 4000,
+                        closeOnClickOutside: false
+                    }), setTimeout(function() {
+                        top.location.href = "adminportal-users.php"
+                    }, 2000);
+                } else {
+                    swal("Database Error", "Make sure the input is correct", "error")
+                    console.log(data)
+                }
+            },
+        });
+    });
+});
 </script>
 
 </html>
