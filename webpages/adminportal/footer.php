@@ -1,6 +1,6 @@
 <footer>
 </footer>
-<?php include "scriptlinks.php" ?>
+<?php include "../scriptlinks.php" ?>
 
 <!-- footer ito -->
 <script>
