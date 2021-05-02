@@ -3,8 +3,8 @@
         <div id="list-type">
 
             <p class="menu-label employee-identification">
-                Sales Employee </br>
-                <strong>Ian Travis</strong>
+                <?php if($_SESSION['usertype'] == "sales") { echo "Sales"; } else { echo "error account"; } ?> </br>
+                <strong><?php echo $_SESSION['name'] . " " . $_SESSION['lastname'] ?></strong> 
             </p>
 
             <div class="list-view">

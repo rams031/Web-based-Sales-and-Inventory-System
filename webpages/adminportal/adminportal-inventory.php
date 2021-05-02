@@ -1,45 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include "header.php";
+$branch_data = ("SELECT * FROM `tbl_branch`");
+$data = mysqli_query($conn, $branch_data);
+?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php include "headlinks.php" ?>
-    
-</head>
+<div class="columns">
 
-<body class="adminportal-inventory">
-    <nav class="navbar" role="navigation" aria-label="main navigation" style="width: 100%;" >
-    <?php include "topnavigation.php" ?>
-    </nav>
-
-    <div class="columns">
-        
-        <div id="sidenavcustom" class="column is-narrow navigationbar">
+    <div id="sidenavcustom" class="column is-narrow navigationbar">
         <?php include "sidenavigation.php" ?>
-        </div>
-
-        <div class="column is-10">
-            <div class="rows">
-                <div class="row is-full">
-                Admin Inventory
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <?php include "scriptlinks.php" ?>
+    <div class="column is-10">
+
+    </div>
+</div>
+
+<?php include "scriptlinks.php" ?>
 </body>
-
-<script>
-$(document).ready(function() {
-    $(".navbar-burger").click(function() {
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
-    });
-});
-</script>
-
 </html>

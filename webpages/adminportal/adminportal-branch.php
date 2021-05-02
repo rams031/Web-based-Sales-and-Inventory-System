@@ -29,20 +29,18 @@ $data = mysqli_query($conn, $branch_data);
                                     <th>Branch Address</th>
                                     <th>Branch Email</th>
                                     <th>Branch Contact</th>
-                                    <th>Branch Employee Size</th>
                                     <th>Branch Date Started</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php while ($row = mysqli_fetch_assoc($data)) { ?>
-                                    <input id="branchid" name="branchid" type="hidden" value="<?php echo $row["branchid"]; ?>" >
+                                    <input class="responsive" width="100%" id="branchid" name="branchid" type="hidden" value="<?php echo $row["branchid"]; ?>" >
                                     <tr>
                                         <td><?php echo $row["branchname"]; ?></td>
                                         <td><?php echo $row["branchaddress"]; ?></td>
                                         <td><?php echo $row["branchemail"]; ?></td>
                                         <td><?php echo $row["branchcontact"]; ?></td>
-                                        <td><?php echo $row["employeesize"]; ?></td>
                                         <td><?php echo $row["datestarted"]; ?></td>
                                         <td>
                                             <a href='adminportal-branch-editbranch.php?branchid=<?php echo $row["branchid"]; ?>' class="button is-light is-small">
@@ -64,7 +62,7 @@ $data = mysqli_query($conn, $branch_data);
     </div>
 </div>
 
-<?php include "scriptlinks.php" ?>
+<?php include "footer.php" ?>
 
 </body>
 

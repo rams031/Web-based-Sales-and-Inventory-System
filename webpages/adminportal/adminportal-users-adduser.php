@@ -1,4 +1,11 @@
-<?php include "header.php" ?>
+<?php
+include "header.php";
+$branch_main_data = ("SELECT * FROM `tbl_branch` where branchtype = 'main'");
+$main_data = mysqli_query($conn, $branch_main_data);
+
+$branch_data = ("SELECT * FROM `tbl_branch` where branchtype = 'branch'");
+$data = mysqli_query($conn, $branch_data);
+?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
 <!-- BRANCH STOCK-->
@@ -97,8 +104,24 @@
                                     <div class="select">
                                         <select name="userbranch" id="userbranch" required>
                                             <option value="" disabled selected>Choose Branch to Assign</option>
-                                            <option value="1">branch1</option>
-                                            <option value="2">branch2</option>
+                                            <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+                                            <option value="<?php echo $row["branchid"] ?>"><?php echo $row["branchname"] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-2 Dropdown-usertype-main">
+                            <div class="field">
+                                <label class="label">Assign to What Branch</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select name="mainbranch" id="mainbranch" required>
+                                            <option value="" disabled selected>Choose Branch to Assign</option>
+                                            <?php while ($row = mysqli_fetch_assoc($main_data)) { ?>
+                                            <option value="<?php echo $row["branchid"] ?>"><?php echo $row["branchname"] ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -144,6 +167,7 @@
 <script>
 $(document).ready(function() {
     $(".Dropdown-usertype").hide();
+    $(".Dropdown-usertype-main").hide();
     $("#available").hide();
     $("#existing").hide();
     $('#Submit').prop("disabled",true);
@@ -151,11 +175,15 @@ $(document).ready(function() {
         console.log($("#usertype").val())
         if ($("#usertype").val() == "sales") {
             $(".Dropdown-usertype").show(500);
+            $(".Dropdown-usertype-main").hide(500);
+            $("#mainbranch").removeAttr('required');
             $("#userbranch").attr('required', 'required')
-        } else {
+        } else if ($("#usertype").val() == "admin") {
+            $(".Dropdown-usertype-main").show(500);
             $(".Dropdown-usertype").hide(500);
             $("#userbranch").removeAttr('required');
-        }
+            $("#mainbranch").attr('required', 'required')
+        } 
     });
     $(".navbar-burger").click(function() {
         $(".navbar-burger").toggleClass("is-active");

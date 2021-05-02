@@ -10,7 +10,7 @@
     </div>
 
     <div class="column is-10">
-        <div class="rows card animate__animated animate__fadeInDown">
+        <div class="rows card is-shadowless animate__animated animate__fadeInDown">
 
         
             <div class="row is-full">

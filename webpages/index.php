@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php include_once "headlinks.php" ?>
+    <?php include "headlinks.php" ?>
 </head>
 
 <body class="login-portal">
@@ -58,6 +58,7 @@
 
 </html>
 <?php include "footer.php" ?>
+<?php include "scriptlinks.php" ?>
 <!-- header.php / nanjan ung header natin-->
 
 <script>

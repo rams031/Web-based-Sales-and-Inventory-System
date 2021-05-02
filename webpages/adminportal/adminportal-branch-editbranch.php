@@ -133,14 +133,6 @@ $branch_data = ("SELECT * FROM `tbl_branch` WHERE `branchid` = $branchid limit 1
                         </div>
 
                         <div class="columns">
-                            <div class="column is-3">
-                                <div class="field">
-                                    <label class="label">Employee Size</label>
-                                    <div class="control">
-                                        <input name="employeesize" id="employeesize" value="<?php echo $row["employeesize"]; ?>" class="input" type="number" placeholder="Employee Size" maxlength="3" required>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="column">
                                 <div class="field">
                                     <label class="label">Company Registration No. <small>(Optional)<small></label>
@@ -168,7 +160,6 @@ $branch_data = ("SELECT * FROM `tbl_branch` WHERE `branchid` = $branchid limit 1
 </div>
 
 <?php include "footer.php" ?>
-<!-- header.php / nanjan ung header natin-->
 
 <script>
     $(".navbar-burger").click(function() {

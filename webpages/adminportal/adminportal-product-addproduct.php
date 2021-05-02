@@ -1,4 +1,6 @@
-<?php include "header.php" ?>
+<?php include "header.php";
+$category_query = ("SELECT * FROM `tbl_category`");
+$data = mysqli_query($conn, $category_query); ?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
 <!-- BRANCH STOCK-->
@@ -15,74 +17,34 @@
                 <div class="columns">
                     <div class="column" style="margin-left:10px;">
                         <span class="icon">
-                            <i class="fas fa-plus-circle fa-2x"></i>
+                            <i class="fas fa-file-alt fa-2x"></i>
                         </span>
-                        <span class="portal-font  has-text-left">Add New Branch</span>
+                        <span class="portal-font  has-text-left">Add New Product</span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <form>
                     <div class="columns">
-                        <div class="column">
+                        <div class="column is-10">
                             <div class="field">
-                                <label class="label">Branch Name</label>
+                                <label class="label">Product Code</label>
                                 <div class="control">
-                                    <input name="branchname" id="branchname" class="input" type="text" placeholder="Branch Name" required>
+                                    <input name="branchname" id="branchname" class="input" type="text" placeholder="Product Code" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div class="column is-2 ">
                             <div class="field">
-                                <label class="label">TIN <small>(Optional)<small></label>
+                                <label class="label">Assign to What Branch</label>
                                 <div class="control">
-                                    <input name="tinno" id="tinno" class="input" type="text" placeholder="Tin(Number)">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-3">
-                            <div class="field">
-                                <label class="label">Branch City</label>
-                                <div class="control">
-                                    <input name="branchcity" id="branchcity" class="input" type="text" placeholder="Branch City" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="field">
-                                <label class="label">Branch Address</label>
-                                <div class="control">
-                                    <input name="branchaddress" id="branchaddress" class="input" type="text" placeholder="Branch Address" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="columns">
-                        <div class="column ">
-                            <div class="field">
-                                <label class="label">Branch Email <small>(Optional)<small></label>
-                                <div class="control">
-                                    <input name="branchemail" id="branchemail" class="input" type="email" placeholder="Branch Email">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="column">
-                            <div class="field">
-                                <label class="label">Branch Contact</label>
-                                <div class="control">
-                                    <div class="field has-addons">
-                                        <p class="control">
-                                            <a class="button is-static">
-                                                +69
-                                            </a>
-                                        </p>
-                                        <p class="control is-expanded">
-                                            <input name="branchcontact" id="branchcontact" type="tel" maxlength="11" class="input" placeholder="Phone Number" required>
-                                        </p>
+                                    <div class="select">
+                                        <select name="userbranch" id="userbranch" required>
+                                            <option value="" disabled selected>Choose Category</option>
+                                            <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+                                            <option value="<?php echo $row["categoryid"] ?>"><?php echo $row["categoryname"] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -92,9 +54,28 @@
                     <div class="columns">
                         <div class="column">
                             <div class="field">
-                                <label class="label">Branch Description</label>
+                                <label class="label">Product Name</label>
                                 <div class="control">
-                                    <textarea name="branchdescription" id="branchdescription" class="textarea" placeholder="Branch Description" required></textarea>
+                                    <input name="tinno" id="tinno" class="input" type="text" placeholder="Product Name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="columns">
+                        <div class="column is-6">
+                            <div class="field">
+                                <label class="label">Product Price</label>
+                                <div class="control">
+                                    <input name="productprice" id="productprice" class="input" type="number" placeholder="Product Price" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-6">
+                            <div class="field">
+                                <label class="label">Product Wholesale Price</label>
+                                <div class="control">
+                                    <input name="productwholesaleprice" id="productwholesaleprice" class="input" type="number" placeholder="Product Wholesale Price">
                                 </div>
                             </div>
                         </div>
@@ -103,13 +84,14 @@
                     <div class="columns">
                         <div class="column">
                             <div class="field">
-                                <label class="label">Company Registration No. <small>(Optional)<small></label>
+                                <label class="label">Product Description</label>
                                 <div class="control">
-                                    <input name="companyregno" id="companyregno" class="input" type="number" placeholder="Branch Registration Number">
+                                    <textarea name="productdescription" id="branchdescription" class="textarea" placeholder="Branch Description" required></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
+                   
                     <div class="columns">
                         <div class="column">
                             <div class="submit-button field is-grouped is-grouped-right">
@@ -142,16 +124,16 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '../../phpaction/addnewbranch.php',
+            url: '../../phpaction/addnewcategory.php',
             data: $('form').serialize(),
             success: function(data) {
                 if (data === "success") {
-                    swal("Branch Data Saved", "Succesfully", "success", {
+                    swal("Product Data Saved", "Succesfully", "success", {
                         buttons: false,
                         timer: 4000,
                         closeOnClickOutside: false
                     }), setTimeout(function() {
-                        top.location.href = "adminportal-branch.php"
+                        top.location.href = "adminportal-product.php"
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
