@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="columns">
-                        <div class="column ">
+                        <div class="column">
                             <div class="field">
                                 <label class="label">Branch Email <small>(Optional)<small></label>
                                 <div class="control">
@@ -69,7 +69,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="column">
                             <div class="field">
                                 <label class="label">Branch Contact</label>
@@ -106,6 +105,20 @@
                                 <label class="label">Company Registration No. <small>(Optional)<small></label>
                                 <div class="control">
                                     <input name="companyregno" id="companyregno" class="input" type="number" placeholder="Branch Registration Number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Branch Type</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select name="branchtype" id="branchtype" required>
+                                            <option value="" disabled selected>Choose Usertype</option>
+                                            <option value="main">Main</option>
+                                            <option value="branch">Branch</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>

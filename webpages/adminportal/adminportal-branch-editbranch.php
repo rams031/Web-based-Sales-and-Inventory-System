@@ -141,6 +141,14 @@ $branch_data = ("SELECT * FROM `tbl_branch` WHERE `branchid` = $branchid limit 1
                                     </div>
                                 </div>
                             </div>
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Branch Type</label>
+                                    <div class="control">
+                                        <input name="branchtype" id="branchtype" class="input" type="text" value="<?php echo $row["branchtype"]; ?>" readonly>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="columns">
                             <div class="column">
@@ -168,18 +176,20 @@ $branch_data = ("SELECT * FROM `tbl_branch` WHERE `branchid` = $branchid limit 1
     });
 
     console.log($('form').serialize())
-
+    $('#branchtype').prop("disabled",true);
     $('form').on('submit', function(event) {
 
         event.preventDefault();
         console.log($('form').serialize())
+        $('#branchtype').prop("disabled",false);
 
         $.ajax({
             type: 'POST',
             url: '../../phpaction/editbranch.php',
             data: $('form').serialize(),
             success: function(data) {
-                if (data === "success") {
+                console.log(data)
+                if (data = "saved") {
                     swal("Branch Data Edited", "Succesfully", "success", {
                         buttons: false,
                         closeOnEsc: false,

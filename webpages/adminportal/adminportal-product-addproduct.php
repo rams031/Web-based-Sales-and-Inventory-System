@@ -36,7 +36,7 @@ $data = mysqli_query($conn, $category_query); ?>
                         </div>
                         <div class="column is-2 ">
                             <div class="field">
-                                <label class="label">Assign to What Branch</label>
+                                <label class="label">Assign to Category</label>
                                 <div class="control">
                                     <div class="select">
                                         <select name="userbranch" id="userbranch" required>
