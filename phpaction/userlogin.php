@@ -26,7 +26,7 @@
             $_SESSION['userid'] = $row['userid'];
 			$_SESSION['name'] = $row['firstname'];
 			$_SESSION['lastname'] = $row['lastname'];
-
+            $_SESSION['branchid'] = $row['branchid'];
 
             if ($remember == "yes") {
                 
@@ -38,6 +38,7 @@
             $_SESSION['userid'] = $row['userid'];
 			$_SESSION['name'] = $row['firstname'];
 			$_SESSION['lastname'] = $row['lastname'];
+            $_SESSION['branchid'] = $row['branchid'];
         }
     } else {
         echo "error";

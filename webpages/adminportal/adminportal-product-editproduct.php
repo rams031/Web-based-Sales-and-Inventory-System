@@ -1,6 +1,13 @@
 <?php include "header.php";
-$category_query = ("SELECT * FROM `tbl_category`");
-$category_data = mysqli_query($conn, $category_query); ?>
+$productid = $_GET['productid'];
+$product_query = 
+("SELECT * FROM `tbl_product`
+JOIN `tbl_category` ON tbl_product.categoryid=tbl_category.categoryid WHERE tbl_product.productid = $productid");
+$category_query = ("SELECT * FROM `tbl_category`
+JOIN `tbl_product` ON tbl_product.categoryid=tbl_category.categoryid WHERE tbl_product.productid != $productid GROUP BY categoryname");
+$product_data = mysqli_query($conn, $product_query); 
+$category_data = mysqli_query($conn, $category_query);
+?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
 <!-- BRANCH STOCK-->
@@ -19,19 +26,22 @@ $category_data = mysqli_query($conn, $category_query); ?>
                         <span class="icon">
                             <i class="fas fa-file-alt fa-2x"></i>
                         </span>
-                        <span class="portal-font  has-text-left">Add New Product</span>
+                        <span class="portal-font  has-text-left">Edit Product</span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <form>
-                    <input type="hidden" id="branchid" name="branchid" value="<?php echo $_SESSION['branchid'] ?>">
+                    <input type="hidden" id="productid" name="productid" value="<?php echo $_GET['productid'] ?>">
+                    <?php
+                    while ($rowfield = mysqli_fetch_assoc($product_data)) { 
+                    ?>
                     <div class="columns">
                         <div class="column is-10">
                             <div class="field">
                                 <label class="label">Product Code</label>
                                 <div class="control">
-                                    <input name="productcode" id="productcode" class="input" type="text" placeholder="Product Code" required>
+                                    <input name="productcode" id="productcode" class="input" value="<?php echo $rowfield["productcode"] ?>" required>
                                 </div>
                             </div>
                         </div>
@@ -40,10 +50,10 @@ $category_data = mysqli_query($conn, $category_query); ?>
                                 <label class="label">Assign to Category</label>
                                 <div class="control">
                                     <div class="select">
-                                        <select name="productcategory" id="productcategory" required>
-                                            <option value="" disabled selected>Choose Category</option>
+                                        <select name="productcategory" id="productcategory" required>   
+                                            <option value="<?php echo $row["categoryid"] ?>" selected><?php echo $row["categoryname"] ?></option>
                                             <?php while ($row = mysqli_fetch_assoc($category_data)) { ?>
-                                            <option value="<?php echo $row["categoryid"] ?>"><?php echo $row["categoryname"] ?></option>
+                                                <option value="<?php echo $row["categoryid"] ?>" selected><?php echo $row["categoryname"] ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -57,7 +67,7 @@ $category_data = mysqli_query($conn, $category_query); ?>
                             <div class="field">
                                 <label class="label">Product Name</label>
                                 <div class="control">
-                                    <input name="productname" id="productname" class="input" type="text" placeholder="Product Name">
+                                    <input name="productname" id="productname" value="<?php echo $rowfield["productname"] ?>" class="input" type="text" placeholder="Product Name">
                                 </div>
                             </div>
                         </div>
@@ -68,7 +78,7 @@ $category_data = mysqli_query($conn, $category_query); ?>
                             <div class="field">
                                 <label class="label">Product Price</label>
                                 <div class="control">
-                                    <input name="productprice" id="productprice" class="input" type="number" placeholder="Product Price" required>
+                                    <input name="productprice" id="productprice" value="<?php echo $rowfield["productprice"] ?>"  class="input" type="number" placeholder="Product Price" required>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +86,7 @@ $category_data = mysqli_query($conn, $category_query); ?>
                             <div class="field">
                                 <label class="label">Product Wholesale Price</label>
                                 <div class="control">
-                                    <input name="productwholesaleprice" id="productwholesaleprice" class="input" type="number" placeholder="Product Wholesale Price">
+                                    <input name="productwholesaleprice" id="productwholesaleprice" value="<?php echo $rowfield["productwholesaleprice"] ?>" class="input" type="number" placeholder="Product Wholesale Price">
                                 </div>
                             </div>
                         </div>
@@ -87,7 +97,7 @@ $category_data = mysqli_query($conn, $category_query); ?>
                             <div class="field">
                                 <label class="label">Product Description</label>
                                 <div class="control">
-                                    <textarea name="productdescription" id="branchdescription" class="textarea" placeholder="Branch Description" required></textarea>
+                                    <textarea name="productdescription" id="branchdescription"  class="textarea" placeholder="Branch Description" required><?php echo $rowfield["productdescription"] ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -96,10 +106,11 @@ $category_data = mysqli_query($conn, $category_query); ?>
                     <div class="columns">
                         <div class="column">
                             <div class="submit-button field is-grouped is-grouped-right">
-                                <input class="button is-light" id="Submit" name="submit" type="submit">
+                                <input class="button is-light" id="submit" name="submit" type="submit">
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                 </form>
             </div>
         </div>
@@ -125,7 +136,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '../../phpaction/addnewproduct.php',
+            url: '../../phpaction/editproduct.php',
             data: $('form').serialize(),
             success: function(data) {
                 if (data === "success") {

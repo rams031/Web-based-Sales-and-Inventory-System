@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="background-image: linear-gradient(to right top, #2e495b, #294252, #253b49, #203440, #1c2d38);">
 
 <head>
     <meta charset="utf-8">
@@ -7,7 +7,7 @@
     <?php include "headlinks.php" ?>
 </head>
 
-<body class="login-portal">
+<body class="login-portal" >
     <section class="section">
         <div class="card">
             <div class="card-content">

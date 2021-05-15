@@ -25,7 +25,7 @@ $data = mysqli_query($conn, $user_getdata);
                     </div>
                 </div>
             </div>
-            <?php while ($row = mysqli_fetch_assoc($user_getdata)) {    ?>
+            <?php while ($row = mysqli_fetch_assoc($data)) {    ?>
                 <div class="row is-full">
                     <form>
                         <div class="columns">

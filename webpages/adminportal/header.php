@@ -1,5 +1,12 @@
 
 <!-- Dito yung Header natin -->
+<?php session_start(); 
+if ($_SESSION['userid'] == '' && $_SESSION['name'] == '' && $_SESSION['lastname'] == '' && $_SESSION['usertype'] == '')
+{
+    header("Location: ../index.php");
+    echo '<script>alert("Make sure to login before access")</script>';
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
 

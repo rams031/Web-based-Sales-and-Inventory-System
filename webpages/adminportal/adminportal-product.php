@@ -41,11 +41,12 @@ $data = mysqli_query($conn, $product_query);
                                         <td><?php echo $row["productwholesaleprice"]; ?></td>
                                         <td><?php echo $row["productdescription"]; ?></td>
                                         <td>
-                                            <a href='adminportal-branch-editbranch.php?branchid=<?php echo $row["branchid"]; ?>' class="button is-light is-small">
-                                                Edit Branch
+                                            <a href='adminportal-product-editproduct.php?productid=<?php echo $row["productid"]; ?>' class="button is-light is-small">
+                                                Edit Product
                                             </a>
                                             <a onclick=DeleteBranch(<?php echo $row["branchid"]; ?>) class="button is-light is-small">
-                                                
+                                                construction
+
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
