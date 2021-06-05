@@ -1,6 +1,7 @@
 <?php
-    include '../database/dbsql.php';
 
+    include '../database/dbsql.php';
+    
     $admin = "main";
     $username = $_POST['username'];
     $firstname = $_POST['firstname'];
@@ -13,6 +14,7 @@
 
 
     $insert_sales = (
+
         "INSERT INTO 
             `tbl_users` (
             `username`, 
@@ -34,14 +36,8 @@
             '$firstname',
             '$lastname',
             '$usergender')"
+
     );
 
-
-    mysqli_query($conn, $insert_sales) or die(mysqli_error($conn));
-    if ($insert_sales) {echo "success";}
-    else {echo ("ERROR :" . $insert_sales . "<br>" . mysqli_error($conn));}
-    
-
-    mysqli_close($conn);	
-
+    query($insert_sales,$conn)
 ?>

@@ -1,6 +1,7 @@
 <?php
-    include '../database/dbsql.php';
 
+    include '../database/dbsql.php';
+    
     $productid = $_POST['productid'];
     $productcode = $_POST['productcode'];
     $productcategory = $_POST['productcategory']; 
@@ -10,6 +11,7 @@
     $productdescription = $_POST['productdescription'];
     
 	$update_product = (
+
         "UPDATE 
           `tbl_product`
         SET    
@@ -19,13 +21,9 @@
           `productprice` = '$productprice',
           `productwholesaleprice` = '$productwholesaleprice',
           `productdescription` = '$productdescription'
-        WHERE `productid` = $productid"  
+        WHERE `productid` = $productid" 
+
     );
 
-    mysqli_query($conn, $update_product) or die(mysqli_error($conn));
-    if ($update_product) {echo "success";}
-    else {echo ("ERROR :" . $update_product . "<br>" . mysqli_error($conn));}
-
-    mysqli_close($conn);	
-
+    query($update_product,$conn)
 ?>

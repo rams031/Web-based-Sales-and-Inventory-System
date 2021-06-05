@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="../style/styles.css">
 <link rel="stylesheet" href="../api/all.css">
 <link rel="stylesheet" href="../api/jquery.dataTables.min.css">
-<!-- <link rel="stylesheet" href="../api/dataTables.bulma.css" /> -->
+<link rel="stylesheet" href="../api/dataTables.bulma.css" />
 <link rel="stylesheet" href="../api/bulma-divider.min.css">
 <link rel="stylesheet" href="../api/animate.min.css">
 <?php } else {  ?>
@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="../../style/styles.css">
 <link rel="stylesheet" href="../../api/all.css">
 <link rel="stylesheet" href="../../api/jquery.dataTables.min.css">
-<!-- <link rel="stylesheet" href="../../api/dataTables.bulma.css" /> -->
+<link rel="stylesheet" href="../../api/dataTables.bulma.css" />
 <link rel="stylesheet" href="../../api/bulma-divider.min.css">
 <link rel="stylesheet" href="../../api/animate.min.css">
 <?php } ?>
