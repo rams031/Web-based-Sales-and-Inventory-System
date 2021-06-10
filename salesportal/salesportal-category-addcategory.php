@@ -1,8 +1,4 @@
-<?php include "header.php" ;
-$categoryid = $_GET['categoryid'];
-$category_data = ("SELECT * FROM `tbl_category` WHERE categoryid = $categoryid");
-$data = mysqli_query($conn, $category_data);
-?>
+<?php include "header.php" ?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
 <!-- BRANCH STOCK-->
@@ -14,30 +10,6 @@ $data = mysqli_query($conn, $category_data);
     </div>
 
     <div class="column is-10 ">
-        <div class="crumblerows">
-            <div class="crumblerow">
-                <div class="breadcrumb" aria-label="breadcrumbs">
-                    <ul>
-                        <li>
-                            <a href="adminportal-category.php">
-                                <span class="icon is-small">
-                                    <i class="fas fa-file-alt" aria-hidden="true"></i>
-                                </span>cd
-                                <span>Manage Category</span>
-                            </a>
-                        </li>
-                        <li class="is-active">
-                            <a disabled>
-                                <span class="icon is-small">
-                                    <i class="fas fa-edit" aria-hidden="true"></i>
-                                </span>
-                                <span>Edit Category</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="rows card is-shadowless animate__animated animate__fadeInDown">
             <div class="row">
                 <div class="columns">
@@ -45,20 +17,19 @@ $data = mysqli_query($conn, $category_data);
                         <span class="icon">
                             <i class="fas fa-file-alt fa-2x"></i>
                         </span>
-                        <span class="portal-font  has-text-left">Edit Product Category</span>
+                        <span class="portal-font  has-text-left">Add New Product Category</span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <form>
-                    <?php while ($row = mysqli_fetch_assoc($data)) { ?>
-                    <input name="categoryid" id="categoryid" value="<?php echo $categoryid; ?>" type="hidden" >
+                    <input type="hidden" id="branchid" name="branchid" value="<?php echo $_SESSION['branchid'] ?>">
                     <div class="columns">
                         <div class="column">
                             <div class="field">
                                 <label class="label">Product Category Name</label>
                                 <div class="control">
-                                    <input name="categoryname" id="categoryname" value="<?php echo $row['categoryname'] ?>" class="input" type="text" placeholder="Category Name" required>
+                                    <input name="categoryname" id="categoryname" class="input" type="text" placeholder="Category Name" required>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +39,7 @@ $data = mysqli_query($conn, $category_data);
                             <div class="field">
                                 <label class="label">Product Category Description</label>
                                 <div class="control">
-                                    <textarea name="categorydescription" id="categorydescription" class="textarea" placeholder="Category Description" required><?php echo $row['categorydescription'] ?></textarea>
+                                    <textarea name="categorydescription" id="categorydescription" class="textarea" placeholder="Category Description" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +52,6 @@ $data = mysqli_query($conn, $category_data);
                             </div>
                         </div>
                     </div>
-                    <?php } ?>
                 </form>
             </div>
         </div>
@@ -107,7 +77,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '../../phpaction/editcategory.php',
+            url: '../../phpaction/addnewcategory.php',
             data: $('form').serialize(),
             success: function(data) {
                 if (data === "success") {

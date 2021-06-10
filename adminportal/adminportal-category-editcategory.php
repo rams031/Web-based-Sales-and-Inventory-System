@@ -22,7 +22,7 @@ $data = mysqli_query($conn, $category_data);
                             <a href="adminportal-category.php">
                                 <span class="icon is-small">
                                     <i class="fas fa-file-alt" aria-hidden="true"></i>
-                                </span>cd
+                                </span>
                                 <span>Manage Category</span>
                             </a>
                         </li>
@@ -116,7 +116,7 @@ $(document).ready(function() {
                         timer: 4000,
                         closeOnClickOutside: false
                     }), setTimeout(function() {
-                        top.location.href = "salesportal-category.php"
+                        top.location.href = "adminportal-category.php"
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
