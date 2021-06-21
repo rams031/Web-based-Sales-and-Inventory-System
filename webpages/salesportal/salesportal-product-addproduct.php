@@ -1,6 +1,9 @@
 <?php include "header.php";
 $category_query = ("SELECT * FROM `tbl_category` where branchid = $branchid");
 $category_data = mysqli_query($conn, $category_query); 
+
+$product_query = ("SELECT * FROM `tbl_product`");
+$product_data = mysqli_query($conn, $product_query);
 ?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
@@ -44,7 +47,7 @@ $category_data = mysqli_query($conn, $category_query);
                             <div class="field">
                                 <label class="label">Product Code</label>
                                 <div class="control">
-                                    <input name="productcode" id="productcode" class="input" type="text" placeholder="Product Code" required>
+                                    <input name="productcode" id="productcode" class="input" type="text" placeholder="Product Code" disabled>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +73,15 @@ $category_data = mysqli_query($conn, $category_query);
                             <div class="field">
                                 <label class="label">Product Name</label>
                                 <div class="control">
-                                    <input name="productname" id="productname" class="input" type="text" placeholder="Product Name">
+                                    <div class="select is-fullwidth">
+                                        <select name="productname" id="productname" required>
+                                            <option value="" disabled selected>Choose Category</option>
+                                            <?php while ($row = mysqli_fetch_assoc($product_data)) { ?>
+                                            <option value="<?php echo $row["productname"] ?>"><?php echo $row["productname"] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <p class="help">Product selection is based from main branch product data</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -129,6 +140,20 @@ $(document).ready(function() {
         $(".navbar-burger").toggleClass("is-active");
         $(".navbar-menu").toggleClass("is-active");
     });
+
+    $( "#productname" ).change(function() {
+        var name = $("#productname").val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '../../phpaction/checkproduct.php',
+            data: {name: name},
+            success: function(data) {
+                alert(data);
+            },
+        });
+    }); 
+
 
     console.log($('form').serialize())
     $('form').on('submit', function(event) {

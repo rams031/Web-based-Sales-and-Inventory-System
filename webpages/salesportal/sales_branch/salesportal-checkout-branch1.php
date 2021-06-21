@@ -95,10 +95,10 @@
                 <table id="checkouttable" class="checkouttable table" cellspacing="0" width="100%" style=padding:10px; >
                     <thead>
                         <tr>
-                            <th>Invetory Id</th>
+                            <th>Inventory ID</th>
                             <th>Product Name</th>
-                            <th>Product Quantity</th>
-                            <th>Product Price</th>
+                            <th>Order Quantity</th>
+                            <th>Order Price</th>
                             <th>Total Amount</th>
                             <th>Action</th>
                         </tr>

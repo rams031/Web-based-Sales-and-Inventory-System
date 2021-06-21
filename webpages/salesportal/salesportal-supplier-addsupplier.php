@@ -49,7 +49,7 @@
                             <div class="field">
                                 <label class="label">Supplier Contact</label>
                                 <div class="control">
-                                    <input name="suppliercontact" id="suppliercontact" class="input" type="text" placeholder="Supplier Contact" required>
+                                    <input name="suppliercontact" id="suppliercontact" class="input" type="number" placeholder="Supplier Contact" required>
                                 </div>
                             </div>
                         </div>

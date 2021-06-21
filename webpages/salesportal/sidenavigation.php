@@ -30,21 +30,9 @@ session_start();
 
                 <ul class="menu-list">
                     <li>
-                        <a class="<?php if (basename($_SERVER['PHP_SELF']) == 'salesportal-checkout.php') {
-                                        echo "activebox disable";
-                                    } else {
-                                        echo "selection";
-                                    } ?>" href="salesportal-checkout.php">
-                            <span class="icon-text <?php if (basename($_SERVER['PHP_SELF']) == 'salesportal-checkout.php') {
-                                                        echo "activebox-font-color";
-                                                    } ?>">
-                                <span class="icon">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </span>
-                                <span>Check out</span>
-                            </span>
-                        </a>
+                        <?php sidenav($url, "salesportal-checkout-orders.php", "Check Out", "fas fa-shopping-cart"); ?>
                     </li>
+ 
                 </ul>
 
                 <ul class="menu-list">
@@ -84,25 +72,13 @@ session_start();
 
                 <ul class="menu-list">
                     <li>
-                        <?php sidenav($url, "salesportal-product.php", "Manage Product", "fa-archive"); 
-                        if ($url == 'salesportal-product.php' || $url == 'salesportal-product-addproduct.php' ) { ?>
-                        <ul>
-                            <li>
-                                <?php sidenav($url, "salesportal-product-addproduct.php", "Add New Product", "fa-plus-circle"); } ?>
-                            </li>
-                        </ul>
+                        <?php sidenav($url, "salesportal-product.php", "Manage Product", "fa-archive");  ?>
                     </li>
                 </ul>
 
                 <ul class="menu-list">
                     <li>
-                        <?php sidenav($url, "salesportal-category.php", "Product Category", "fa-grip-lines");
-                        if ($url == 'salesportal-category.php' || $url == 'salesportal-category-addcategory.php') { ?>
-                        <ul>
-                            <li>
-                            <?php sidenav($url, "salesportal-category-addcategory.php", "Add new Category", "fa-plus-circle"); } ?>
-                            </li>
-                        </ul>
+                        <?php sidenav($url, "salesportal-category.php", "Product Category", "fa-grip-lines"); ?>
                     </li>
                 </ul>
 
