@@ -1,4 +1,5 @@
 <?php
+
     include '../database/dbsql.php';
 
     $branchemail = $_POST['branchemail']; 
@@ -8,9 +9,8 @@
     $branchcity = $_POST['branchcity'];
     $branchaddress = $_POST['branchaddress'];
     $branchdescription = $_POST['branchdescription'];
-    $employeesize = $_POST['employeesize'];
     $branchcontact = $_POST['branchcontact'];
-
+    $branchtype = $_POST['branchtype'];
 
     $add_new_branch = (
             
@@ -20,30 +20,25 @@
             `branchaddress`, 
             `branchdescription`, 
             `datestarted`, 
-            `employeesize`, 
             `branchtinnumber`, 
             `branchregistrationnumber`, 
             `branchemail`, 
-            `branchcontact`) 
+            `branchcontact`,
+            `branchtype`) 
         VALUES (
             '$branchname',
             '$branchcity',
             '$branchaddress',
             '$branchdescription',
             CURDATE(),
-            '$employeesize',
             '$branchtinno',
             '$branchregistrationnumber',
             '$branchemail',
-            '$branchcontact')"
+            '$branchcontact',
+            '$branchtype'
+            )"
 
     );
-    
-    mysqli_query($conn, $add_new_branch) or die(mysqli_error($conn));
-    if ($add_new_branch) {echo "success";}
-    else {echo ("ERROR :" . $add_new_branch . "<br>" . mysqli_error($conn));}
 
-    mysqli_close($conn);
-
-
+    query($add_new_branch,$conn)
 ?>

@@ -1,4 +1,5 @@
 <?php
+
     include '../database/dbsql.php';
 
     $branchid = $_POST['branchid'];
@@ -31,10 +32,5 @@
 
     );
 
-    mysqli_query($conn, $add_new_product) or die(mysqli_error($conn));
-    if ($add_new_product) {echo "success";}
-    else {echo ("ERROR :" . $add_new_product . "<br>" . mysqli_error($conn));}
-
-    mysqli_close($conn);	
-
+    query($add_new_product,$conn)
 ?>

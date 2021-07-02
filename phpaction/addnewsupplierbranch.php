@@ -3,6 +3,7 @@
     include '../database/dbsql.php';
 
     $branchid = $_POST['branchid'];
+    $supplierid = $_POST['supplierid'];
     $suppliername = $_POST['suppliername'];
     $supplieraddress = $_POST['supplieraddress']; 
     $suppliercontact = $_POST['suppliercontact'];
@@ -13,17 +14,17 @@
         "INSERT INTO 
         `tbl_supplier`(
          `branchid`,
-         `suppliername`,
          `branchsupplierid`,
+         `suppliername`,
          `supplieraddress`,
          `suppliercontact`,
          `date`)
         VALUES (
          '$branchid',
-         '$suppliername',
-         NULL,
-         '$supplieraddress',
-         '$suppliercontact',
+         '$supplierid',
+          NULLIF('$suppliername',''),
+          NULLIF('$supplieraddress',''),
+          NULLIF('$suppliercontact',''),
          '$supplierdate '
          )"
 

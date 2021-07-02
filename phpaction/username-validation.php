@@ -13,3 +13,4 @@
         else {
             echo "Database Error";
         }
+?>

@@ -17,6 +17,27 @@ body,
     background-color: #F6F5F9;
 }
 
+td {
+    text-align:center;
+    text-transform: capitalize;
+}
+
+hr {
+    margin: 5px 0px;
+}
+
+.tag {
+    float: left;
+}
+
+.tag.is-delete {
+    float: right
+}
+
+.list-item:last-child hr {
+    display:none;
+}
+
 .swal-footer {
     background-color: rgb(245, 248, 250);
     margin-top: 32px;
@@ -30,6 +51,7 @@ body,
 
 .card {
     border-radius: 10px;
+    padding:20px;
 }
 li {
     list-style-type:none;
@@ -93,7 +115,7 @@ nav {
 
 .activebox {
     background-color: #706CF1;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .backcolor {
@@ -103,17 +125,51 @@ nav {
     border-radius: 5px;
 }
 
+.tabletransaction {
+    border: 1px solid black;
+}
+
+.tablerequeststock td{
+    border: 1px solid black;
+    margin:10px;
+     
+} 
+
+.totalnumbers {
+    text-align:center; 
+    margin-right:20px;
+    margin-top:20px;
+}
+
+.dashtitle {
+    font-size:25px;
+}
+
+.criticallevel {
+    background-color: #F5B7B1 ;
+}
+
 
 .rows{
     display: flex;
     flex-direction: column;
-    margin:40px 50px 50px 35px;
+    margin:30px 50px 50px 35px;
     
 }  
 .row {
-    margin:40px 50px 50px 35px;
+    margin:20px 30px 20px 25px;
     
 } 
+
+.display {
+    margin: 40px;
+    text-align: center;
+}
+
+#checkouttable {
+    margin: 40px;
+    text-align: center;
+}
 
 .crumblerows{
     display: flex;
@@ -121,20 +177,14 @@ nav {
     margin-top: 40px;
     margin-left:40px;
 } 
-.crumblerow {
-} 
 
 .menu-list {
     margin:5px;
 }
 
-
-
-
 #sidenavcustom {
     margin:10px;
 }
-
 
 .portal-font{
     font-weight: bold;
@@ -142,7 +192,6 @@ nav {
 
     
 }
-
 
 .side-navigation-list li {
     margin-left: 25px;
@@ -162,7 +211,6 @@ nav {
     color:white;
 }
 
-
 .employee-identification {
     text-align: center;
     margin:30px 0em 0em 0em;
@@ -174,7 +222,6 @@ nav {
     background-color:white;
 
 }
-
 
 .list-view {
     margin:1.5em 4em 2em 2em; 
@@ -195,6 +242,3 @@ nav {
     border-radius: 5px;
 
 }
-
-
-
