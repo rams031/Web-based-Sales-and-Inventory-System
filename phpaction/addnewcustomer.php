@@ -16,7 +16,7 @@
           `customername`,
           `customeraddress`,
           `customercontact`,
-          `dateadded`)
+          `customerdate`)
        VALUES(
           '$branchid',
           '$customername',

@@ -7,7 +7,7 @@
     $supplierid = $_POST['supplierid'];
     $date = $_POST['date']; 
 
-	$add_new_recieving= (
+	$add_new_receiving= (
 
         "INSERT INTO 
         `tbl_receiving`(
@@ -23,5 +23,5 @@
 
     );
 
-    query($add_new_recieving,$conn)
+    query($add_new_receiving,$conn)
 ?>

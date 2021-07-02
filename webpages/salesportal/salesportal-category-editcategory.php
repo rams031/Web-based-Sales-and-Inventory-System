@@ -99,11 +99,9 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
     });
 
-    console.log($('form').serialize())
     $('form').on('submit', function(event) {
 
         event.preventDefault();
-        console.log($('form').serialize())
 
         $.ajax({
             type: 'POST',
@@ -120,7 +118,6 @@ $(document).ready(function() {
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
-                    console.log(data)
                 }
             },
         });

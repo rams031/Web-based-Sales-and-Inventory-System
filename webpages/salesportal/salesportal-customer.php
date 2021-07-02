@@ -40,17 +40,17 @@ $data = mysqli_query($conn, $inventory_data);
                                         <tr>
                                             <td><?php echo $row["customerid"]; ?></td>
                                             <td><?php echo $row["customername"]; ?></td>
-                                            <td><?php echo $row["dateadded"]; ?></td>
+                                            <td><?php echo $row["customerdate"]; ?></td>
                                             <td>
-                                                <a href='adminportal-branch-editbranch.php?branchid=<?php echo $row["branchid"]; ?>' class="button is-light is-small">
-                                                    Edit Details
+                                                <a href='salesportal-customer-editcustomer.php?customerid=<?php echo $row["customerid"]; ?>' class="button is-light is-small">
+                                                    Edit
                                                 </a>
                                             </td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <?php include "header.php";
-$category_query = ("SELECT * FROM `tbl_category`");
-$category_data = mysqli_query($conn, $category_query); ?>
+$category_query = ("SELECT * FROM `tbl_category` where branchid = $branchid");
+$category_data = mysqli_query($conn, $category_query); 
+?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
 <!-- BRANCH STOCK-->
@@ -24,6 +25,18 @@ $category_data = mysqli_query($conn, $category_query); ?>
                 </div>
             </div>
             <div class="row">
+
+                <div class="columns">
+                    <div class="column is-12">
+                      <div class="content">
+                        <br>
+                        <blockquote>
+                        New Product Information
+                        </blockquote>
+                      </div>                        
+                    </div>
+                </div>
+
                 <form>
                     <input type="hidden" id="branchid" name="branchid" value="<?php echo $_SESSION['branchid'] ?>">
                     <div class="columns">
@@ -35,11 +48,11 @@ $category_data = mysqli_query($conn, $category_query); ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="column is-2 ">
+                        <div class="column is-2">
                             <div class="field">
                                 <label class="label">Assign to Category</label>
                                 <div class="control">
-                                    <div class="select">
+                                    <div class="select is-fullwidth">
                                         <select name="productcategory" id="productcategory" required>
                                             <option value="" disabled selected>Choose Category</option>
                                             <?php while ($row = mysqli_fetch_assoc($category_data)) { ?>
@@ -117,11 +130,9 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
     });
 
-    console.log($('form').serialize())
     $('form').on('submit', function(event) {
 
         event.preventDefault();
-        console.log($('form').serialize())
 
         $.ajax({
             type: 'POST',
@@ -138,7 +149,6 @@ $(document).ready(function() {
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
-                    console.log(data)
                 }
             },
         });

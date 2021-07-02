@@ -1,6 +1,7 @@
 <?php
 include "header.php";
-$user_query = ("SELECT * FROM `tbl_users`");
+$user_query = ("SELECT * FROM `tbl_users` 
+JOIN `tbl_branch` ON tbl_users.branchid = tbl_branch.branchid");
 $data = mysqli_query($conn, $user_query);
 ?>
 
@@ -12,7 +13,6 @@ $data = mysqli_query($conn, $user_query);
 
     <div class="column is-10">
         <div class="rows card is-shadowless animate__animated animate__fadeInDown">
-
             <div class="row is-full">
                 <div class="columns">
                 <div class="column">                        
@@ -43,13 +43,10 @@ $data = mysqli_query($conn, $user_query);
                                     <td><?php echo $row["username"]; ?></td>
                                     <td><?php echo $row["gender"]; ?></td>
                                     <td><?php echo $row["usertype"]; ?></td>
-                                    <td><?php echo $row["branchid"]; ?></td>
+                                    <td><?php echo $row["branchname"]; ?></td>
                                     <td>
-                                        <a href='adminportal-users-edituser.php?userid=<?php echo $row["jobid"]; ?>' class="button is-light is-small">
-                                            Edit Account
-                                        </a>
-                                        <a onclick=confirmDelete(<?php echo $row["jobid"]; ?>) class="button is-light is-small">
-                                            <i class="fas fa-trash-alt"></i>
+                                        <a href='adminportal-users-edituser.php?userid=<?php echo $row["userid"]; ?>' class="button is-light is-small">
+                                            Edit
                                         </a>
                                     </td>
                                 </tr>
@@ -65,7 +62,7 @@ $data = mysqli_query($conn, $user_query);
 
 
 
-<?php include "scriptlinks.php" ?>
+<?php include "footer.php" ?>
 </body>
 
 <script type="text/javascript">

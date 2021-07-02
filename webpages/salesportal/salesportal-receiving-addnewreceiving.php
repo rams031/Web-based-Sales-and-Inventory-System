@@ -1,5 +1,6 @@
 <?php include "header.php";
-$supplier_query = ("SELECT * FROM `tbl_supplier` where branchid = $branchid");
+$supplier_query = ("SELECT * FROM `tbl_supplier` 
+JOIN `tbl_branch` ON tbl_supplier.branchsupplierid = tbl_branch.branchid where tbl_supplier.branchid = $branchid");
 $supplier_data = mysqli_query($conn, $supplier_query); ?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
@@ -66,7 +67,7 @@ $supplier_data = mysqli_query($conn, $supplier_query); ?>
                                         <select name="supplierid" id="supplierid" required>
                                             <option value="" disabled selected>Choose Supplier</option>
                                             <?php while ($row = mysqli_fetch_assoc($supplier_data)) { ?>
-                                            <option value="<?php echo $row["supplierid"] ?>"><?php echo $row["suppliername"]?></option>
+                                            <option value="<?php echo $row["supplierid"] ?>"><?php echo $row["branchname"]?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -99,11 +100,9 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
     });
 
-    console.log($('form').serialize())
     $('form').on('submit', function(event) {
 
         event.preventDefault();
-        console.log($('form').serialize())
 
         $.ajax({
             type: 'POST',
@@ -120,7 +119,6 @@ $(document).ready(function() {
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
-                    console.log(data)
                 }
             },
         });

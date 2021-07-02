@@ -17,16 +17,17 @@
                         <span class="icon">
                             <i class="fas fa-file-alt fa-2x"></i>
                         </span>
-                        <span class="portal-font  has-text-left">Add New Category</span>
+                        <span class="portal-font  has-text-left">Add New Product Category</span>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <form>
+                    <input type="hidden" id="branchid" name="branchid" value="<?php echo $_SESSION['branchid'] ?>">
                     <div class="columns">
                         <div class="column">
                             <div class="field">
-                                <label class="label">Category Name</label>
+                                <label class="label">Product Category Name</label>
                                 <div class="control">
                                     <input name="categoryname" id="categoryname" class="input" type="text" placeholder="Category Name" required>
                                 </div>
@@ -36,7 +37,7 @@
                     <div class="columns">
                         <div class="column">
                             <div class="field">
-                                <label class="label">Category Description</label>
+                                <label class="label">Product Category Description</label>
                                 <div class="control">
                                     <textarea name="categorydescription" id="categorydescription" class="textarea" placeholder="Category Description" required></textarea>
                                 </div>
@@ -68,11 +69,9 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
     });
 
-    console.log($('form').serialize())
     $('form').on('submit', function(event) {
 
         event.preventDefault();
-        console.log($('form').serialize())
 
         $.ajax({
             type: 'POST',
@@ -89,7 +88,6 @@ $(document).ready(function() {
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
-                    console.log(data)
                 }
             },
         });

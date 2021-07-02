@@ -1,6 +1,6 @@
 <?php
 include "header.php";
-$category_data = ("SELECT * FROM `tbl_category` where branchid = $branchid");
+$category_data = ("SELECT * FROM `tbl_category`");
 $data = mysqli_query($conn, $category_data);
 ?>
 
@@ -20,7 +20,7 @@ $data = mysqli_query($conn, $category_data);
                         <span class="icon">
                             <i class="fas fa-file-alt  fa-2x"></i>
                         </span>
-                        <span class="portal-font">Manage Category</span></div>
+                        <span class="portal-font">Product Category</span></div>
                     <div class="column">
                         <table class="display" cellspacing="0" width="100%" >
                             <thead>

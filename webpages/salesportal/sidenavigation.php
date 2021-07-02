@@ -1,6 +1,15 @@
 <?php 
 $url = basename($_SERVER['PHP_SELF']);
 session_start();
+
+include '../database/dbsql.php';
+
+$branch_query = ("SELECT * FROM `tbl_branch` WHERE branchid = $branchid");
+$branch_data = mysqli_query($conn, $branch_query);
+
+while ($row = mysqli_fetch_assoc($branch_data)) {
+    $branchname = $row["branchname"];
+}
 ?>
 
 <aside id="sidenav" class="menu animate__animated animate__fadeIn">
@@ -9,7 +18,8 @@ session_start();
 
             <p class="menu-label employee-identification">
                 <?php if($_SESSION['usertype'] == "sales") { echo "Sales"; } else { echo "error account"; } ?> </br>
-                <strong><?php echo $_SESSION['name'] . " " . $_SESSION['lastname'] ?></strong> 
+                <strong><?php echo $_SESSION['name'] . " " . $_SESSION['lastname'] ?></strong> </br>
+                <strong>(<?php echo $branchname ?> Branch)</strong> 
             </p>
 
             <div class="list-view">
@@ -60,11 +70,11 @@ session_start();
 
                 <ul class="menu-list">
                     <li>
-                        <?php sidenav($url, "salesportal-inventory.php", "Manage Inventory", "fa-tachometer-alt");
-                        if ($url == 'salesportal-inventory.php' || $url == 'salesportal-inventory-addinventory.php' ) { ?>
+                        <?php sidenav($url, "salesportal-stock.php", "Manage Stock", "fa-box-open");
+                        if ($url == 'salesportal-stock.php' || $url == 'salesportal-stock-addstock.php' ) { ?>
                         <ul>
                             <li>
-                                <?php sidenav($url, "salesportal-inventory-addinventory.php", "Add New Inventory", "fa-plus-circle"); } ?>
+                                <?php sidenav($url, "salesportal-stock-addstock.php", "Add New Stock", "fa-plus-circle"); }?>
                             </li>
                         </ul>
                     </li>
@@ -72,13 +82,19 @@ session_start();
 
                 <ul class="menu-list">
                     <li>
-                        <?php sidenav($url, "salesportal-product.php", "Manage Product", "fa-archive");  ?>
+                        <?php sidenav($url, "salesportal-inventory.php", "Inventory Logs", "fa-tachometer-alt");
+                        if ($url == 'salesportal-inventory.php' || $url == 'salesportal-inventory-addinventory.php' ) { ?>
+                        <ul>
+                            <li>
+                                <?php sidenav($url, "salesportal-inventory-addinventory.php", "Add New Inventory", "fa-plus-circle"); }?>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
 
                 <ul class="menu-list">
                     <li>
-                        <?php sidenav($url, "salesportal-category.php", "Product Category", "fa-grip-lines"); ?>
+                        <?php sidenav($url, "salesportal-product.php", "Product List", "fa-archive");  ?>
                     </li>
                 </ul>
 
@@ -108,43 +124,13 @@ session_start();
 
                 <ul class="menu-list">
                     <li>
-                        <a class="<?php if (basename($_SERVER['PHP_SELF']) == 'salesportal-requeststock.php') {
-                                        echo "activebox disable";
-                                    } else {
-                                        echo "selection";
-                                    } ?>" href="salesportal-requeststock.php">
-                            <span class="icon-text <?php if (basename($_SERVER['PHP_SELF']) == 'salesportal-requeststock.php') {
-                                                        echo "activebox-font-color";
-                                                    } ?>">
-                                <span class="icon">
-                                    <i class="fas fa-boxes"></i>
-                                </span>
-                                <span>Request Stock</span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-
-                <p class="menu-label">
-                    Documents
-                </p>
-
-                <ul class="menu-list">
-                    <li>
-                        <a class="<?php if (basename($_SERVER['PHP_SELF']) == 'salesportal-reports.php') {
-                                        echo "activebox disable";
-                                    } else {
-                                        echo "selection";
-                                    } ?>" href="salesportal-reports.php">
-                            <span class="icon-text <?php if (basename($_SERVER['PHP_SELF']) == 'salesportal-reports.php') {
-                                                        echo "activebox-font-color";
-                                                    } ?>">
-                                <span class="icon">
-                                    <i class="fas fa-file-alt"></i>
-                                </span>
-                                <span>Reports</span>
-                            </span>
-                        </a>
+                        <?php sidenav($url, "salesportal-requeststock.php", "Request Stock", "fa-boxes");  
+                        if ($url == 'salesportal-requeststock.php' || $url == 'salesportal-requeststock-createrequest.php') { ?>
+                        <ul>
+                            <li>
+                                <?php sidenav($url, "salesportal-requeststock-createrequest.php", "Create new request", "fa-plus-circle"); } ?>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
 

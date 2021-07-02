@@ -2,7 +2,7 @@
 
     include '../database/dbsql.php';
     //header('Content-Type:application/json;');
-    $mydate = $_POST["mydate"];
+    $data = $_POST["data"];
     $customerid = $_POST["customerid"];
     $branchid = $_POST["branchid"];
     $datecheckout = $_POST["datecheckout"];
@@ -19,22 +19,23 @@
         $transid =  $row["transactionidcount"] + 1;
     }
 
-    for($i = 0; $i < count($mydate); $i++){ 
+    for($i = 0; $i < count($data); $i++){ 
 
-        $inventoryid_clean = json_encode($mydate[$i]['inventoryid']);
-        $productname_clean = json_encode($mydate[$i]['proname']);
-        $quantity_clean = json_encode($mydate[$i]['quantity']);
-        $productprice_clean = json_encode($mydate[$i]['productprice']);
-        $totalamount_clean = json_encode($mydate[$i]['totalamount']);
+        $stockid_clean = json_encode($data[$i]['stockid']);
+        $productname_clean = json_encode($data[$i]['proname']);
+        $quantity_clean = json_encode($data[$i]['quantity']);
+        $productprice_clean = json_encode($data[$i]['productprice']);
+        $totalamount_clean = json_encode($data[$i]['totalamount']);
 
-        if ($inventoryid_clean != ""){
+
+        if ($stockid_clean != ""){
 
             $query .= 
             "INSERT INTO `tbl_order`
             (`branchid`,
              `transactionid`,
              `customerid`,
-             `inventoryid`,
+             `stockid`,
              `orderquantity`,
              `totalamount`,
              `orderdate`)
@@ -42,7 +43,7 @@
              '$branchid',
              '$transid',
              '$customerid',
-             $inventoryid_clean,
+             $stockid_clean,
              $quantity_clean,
              $totalamount_clean,
              '$datecheckout');
@@ -69,26 +70,27 @@
 
     }
 
-    for($i = 0; $i < count($mydate); $i++){ 
+    for($i = 0; $i < count($data); $i++){ 
 
-        $inventoryid_clean = json_encode($mydate[$i]['inventoryid']);
-        $productname_clean = json_encode($mydate[$i]['proname']);
-        $quantity_clean = json_encode($mydate[$i]['quantity']);
-        $productprice_clean = json_encode($mydate[$i]['productprice']);
-        $totalamount_clean = json_encode($mydate[$i]['totalamount']);
+        $stockid_clean = json_encode($data[$i]['stockid']);
+        $productname_clean = json_encode($data[$i]['proname']);
+        $quantity_clean = json_encode($data[$i]['quantity']);
+        $productprice_clean = json_encode($data[$i]['productprice']);
+        $totalamount_clean = json_encode($data[$i]['totalamount']);
 
-        if ($inventoryid_clean != ""){
+        if ($stockid_clean != ""){
             
             $updatequery .= 
-            "UPDATE 
-                `tbl_inventory`
-             SET    
-                `quantity` = quantity - $quantity_clean
-            WHERE  inventoryid = $inventoryid_clean;";
+            "UPDATE `tbl_stock`
+            SET    
+                   `stockquantity` = stockquantity - $quantity_clean
+            WHERE  stockid = $stockid_clean;";
 
         }
 
     }
+
+    
 
     if($updatequery != '')
     {

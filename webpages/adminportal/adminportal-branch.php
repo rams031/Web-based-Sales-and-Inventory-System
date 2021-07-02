@@ -27,7 +27,7 @@ $data = mysqli_query($conn, $branch_data);
                                 <tr>
                                     <th>Branch name</th>
                                     <th>Branch Address</th>
-                                    <th>Branch Email</th>
+                                    <th>Branch Type</th>
                                     <th>Branch Contact</th>
                                     <th>Branch Date Started</th>
                                     <th>Action</th>
@@ -39,15 +39,14 @@ $data = mysqli_query($conn, $branch_data);
                                     <tr>
                                         <td><?php echo $row["branchname"]; ?></td>
                                         <td><?php echo $row["branchaddress"]; ?></td>
-                                        <td><?php echo $row["branchemail"]; ?></td>
+                                        <td><?php echo $row["branchtype"]; ?></td>
                                         <td><?php echo $row["branchcontact"]; ?></td>
                                         <td><?php echo $row["datestarted"]; ?></td>
                                         <td>
-                                            <a href='adminportal-branch-editbranch.php?branchid=<?php echo $row["branchid"]; ?>' class="button is-light is-small">
-                                                Edit Branch
+                                            <a href='adminportal-branch-editbranch.php?branchdataid=<?php echo $row["branchid"]; ?>' class="button is-light is-small">
+                                                Edit
                                             </a>
                                             <a onclick=DeleteBranch(<?php echo $row["branchid"]; ?>) class="button is-light is-small">
-                                                
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
@@ -78,7 +77,6 @@ function DeleteBranch(bid) {
         closeOnEsc: false,
         closeOnClickOutside: false,
     }).then((result) => {
-        console.log(result)
         if (result == true) {
             $.ajax({
                 url: '../../phpaction/deletebranch.php',
@@ -99,7 +97,6 @@ function DeleteBranch(bid) {
                         }, 2000);
                     } else {
                         swal("Database Error", "Make sure the input is correct", "error")
-                        console.log(data)
                     }
                 },
             })
@@ -115,6 +112,8 @@ $(document).ready(function() {
         $(".navbar-burger").toggleClass("is-active");
         $(".navbar-menu").toggleClass("is-active");
     });
+
+    
 });
 </script>
 

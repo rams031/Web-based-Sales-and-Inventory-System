@@ -1,6 +1,7 @@
 <?php
 include "header.php";
-$product_query = ("SELECT * FROM `tbl_product`");
+$product_query = ("SELECT * FROM `tbl_product` 
+JOIN `tbl_category` ON tbl_product.categoryid = tbl_category.categoryid");
 $data = mysqli_query($conn, $product_query);
 ?>
 
@@ -28,7 +29,8 @@ $data = mysqli_query($conn, $product_query);
                                     <th>Product Name</th>
                                     <th>Product Price</th>
                                     <th>Product Wholesaleprice</th>
-                                    <th>Product Description</th>
+                                    <th>Category</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,14 +41,12 @@ $data = mysqli_query($conn, $product_query);
                                         <td><?php echo $row["productname"]; ?></td>
                                         <td><?php echo $row["productprice"]; ?></td>
                                         <td><?php echo $row["productwholesaleprice"]; ?></td>
-                                        <td><?php echo $row["productdescription"]; ?></td>
+                                        <td><?php echo $row["categoryname"]; ?></td>
                                         <td>
                                             <a href='adminportal-product-editproduct.php?productid=<?php echo $row["productid"]; ?>' class="button is-light is-small">
-                                                Edit Product
+                                                Edit 
                                             </a>
-                                            <a onclick=DeleteBranch(<?php echo $row["branchid"]; ?>) class="button is-light is-small">
-                                                construction
-
+                                            <a onclick=deleteproduct(<?php echo $row["productid"]; ?>) class="button is-light is-small">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
@@ -65,6 +65,44 @@ $data = mysqli_query($conn, $product_query);
 </body>
 
 <script type="text/javascript">
+
+    function deleteproduct(id) {    
+        swal("You won't be able to revert this!", {
+            title: 'Are you sure?',
+            dangerMode: true,
+            cancel: true,
+            buttons: true,
+            closeOnEsc: false,
+            closeOnClickOutside: false,
+        }).then((result) => {
+            if (result == true) {
+                $.ajax({
+                    url: '../../phpaction/deleteproduct.php',
+                    method: 'POST',
+                    data: {
+                        productid: id,
+                    },
+                    success: function(data) {
+                        if (data === "success") {
+                            swal("Product Data Deleted", "Succesfully", "success", {
+                                buttons: false,
+                                closeOnEsc: false,
+                                closeOnClickOutside: false,
+                                timer: 4000,
+                                closeOnClickOutside: false
+                            }), setTimeout(function() {
+                                top.location.href = "adminportal-product.php"
+                            }, 2000);
+                        } else {
+                            swal("Database Error", "Make sure the input is correct", "error")
+                        }
+                    },
+                })  
+
+            }
+        });
+    }
+    
     $(document).ready(function() {
         $('.display').DataTable({ responsive: true });
         $(".navbar-burger").click(function() {

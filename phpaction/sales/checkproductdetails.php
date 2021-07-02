@@ -4,15 +4,11 @@
 
     include '../../database/dbsql.php';
 
-    $inventoryid = $_POST['inventoryid'];
+    $stockid = $_POST['stockid'];
 
-	$product_check = ("SELECT SUM(tbl_inventory.quantity) as sumofquantity, 
-    tbl_product.productname, tbl_product.productprice, tbl_product.productcode, 
-    tbl_inventory.inventoryid,tbl_inventory.quantity, tbl_supplier.suppliername  FROM `tbl_inventory`
-    JOIN `tbl_product` ON tbl_product.productid=tbl_inventory.productid 
-    JOIN `tbl_receiving` ON tbl_receiving.receivingid=tbl_inventory.receivingid
-    JOIN `tbl_supplier` ON tbl_supplier.supplierid=tbl_receiving.supplierid
-    WHERE tbl_inventory.branchid = $branchid && tbl_inventory.inventoryid = $inventoryid GROUP BY tbl_product.productcode LIMIT 1");
+	$product_check = ("SELECT * FROM `tbl_stock` 
+    JOIN `tbl_product` ON tbl_product.productid=tbl_stock.productid 
+    WHERE tbl_stock.branchid = $branchid && tbl_stock.stockid = $stockid LIMIT 1");
 
     $result = mysqli_query($conn, $product_check)or die(mysqli_error($conn));
     

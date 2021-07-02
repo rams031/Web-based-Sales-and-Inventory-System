@@ -1,9 +1,13 @@
 <?php
 include "header.php";
-$inventory_data = ("SELECT SUM(tbl_inventory.quantity) as sumofquantity , tbl_product.productname, tbl_product.productname, tbl_product.productprice, 
-tbl_product.productcode, tbl_inventory.inventoryid,tbl_inventory.quantity FROM `tbl_inventory` JOIN `tbl_product` ON 
-tbl_product.productid=tbl_inventory.productid WHERE tbl_inventory.branchid = $branchid GROUP BY tbl_inventory.productid");
-$data = mysqli_query($conn, $inventory_data);
+$inventory_query = ("SELECT * FROM `tbl_inventory` 
+JOIN `tbl_stock` ON tbl_stock.stockid=tbl_inventory.stockid 
+JOIN `tbl_product` ON tbl_product.productid=tbl_stock.productid 
+JOIN `tbl_receiving` ON tbl_receiving.receivingid=tbl_inventory.receivingid 
+JOIN `tbl_supplier` ON tbl_supplier.supplierid=tbl_receiving.supplierid 
+JOIN `tbl_branch` ON tbl_branch.branchid=tbl_supplier.branchsupplierid 
+WHERE tbl_inventory.branchid = $branchid ORDER BY tbl_inventory.inventoryid ASC");
+$inventory_data = mysqli_query($conn, $inventory_query);
 ?>
 
 <div class="columns">
@@ -29,25 +33,27 @@ $data = mysqli_query($conn, $inventory_data);
                                 <tr>
                                     <th>Inventory ID</th>
                                     <th>Product Name</th>
-                                    <th>Unit Price</th>
+                                    <th>Supplier</th>
                                     <th>Quantity</th>
+                                    <th>Delivery Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = mysqli_fetch_assoc($data)) { ?>
+                                <?php while ($row = mysqli_fetch_assoc($inventory_data)) { ?>
                                     <input class="responsive" width="100%" id="branchid" name="branchid" type="hidden" value="<?php echo $row["branchid"]; ?>" >
                                     <tr>
                                         <td><?php echo $row["inventoryid"]; ?></td>
                                         <td><?php echo $row["productname"]; ?></td>
-                                        <td><?php echo $row["productprice"]; ?></td>
+                                        <td><?php echo $row["branchname"]; ?></td>
                                         <td><?php echo $row["quantity"]; ?></td>
+                                        <td><?php echo $row["dateadded"]; ?></td>
+
                                         <td>
-                                            <a href='adminportal-branch-editbranch.php?branchid=<?php echo $row["branchid"]; ?>' class="button is-light is-small">
-                                                Edit Branch
+                                            <a href='salesportal-inventory-editinventory.php?inventoryid=<?php echo $row["inventoryid"]; ?>' class="button is-light is-small">
+                                                Edit
                                             </a>
-                                            <a onclick=DeleteBranch(<?php echo $row["branchid"]; ?>) class="button is-light is-small">
-                                                construction
+                                            <a onclick=deleteinventory(<?php echo $row["inventoryid"]; ?>,<?php echo $row["quantity"]; ?>,<?php echo $row["stockid"];?>) class="button is-light is-small">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </td>
@@ -67,6 +73,46 @@ $data = mysqli_query($conn, $inventory_data);
 </body>
 
 <script type="text/javascript">
+
+function deleteinventory(iid,qty,stckid) {
+
+swal("You won't be able to revert this!", {
+    title: 'Are you sure?',
+    dangerMode: true,
+    cancel: true,
+    buttons: true,
+    closeOnEsc: false,
+    closeOnClickOutside: false,
+}).then((result) => {
+    if (result == true) {
+        $.ajax({
+            url: '../../phpaction/deleteinventory.php',
+            method: 'POST',
+            data: {
+                inventoryid: iid,
+                quantity: qty,
+                stockid: stckid
+            },
+            success: function(data) {
+                if (data === "successsuccess") {
+                    swal("Inventory Data Deleted", "Succesfully", "success", {
+                        buttons: false,
+                        closeOnEsc: false,
+                        closeOnClickOutside: false,
+                        timer: 4000,
+                        closeOnClickOutside: false
+                    }), setTimeout(function() {
+                        top.location.href = "salesportal-inventory.php"
+                    }, 2000);
+                } else {
+                    swal("Database Error", "Make sure the input is correct", "error")
+                }
+            },
+        })
+        
+    }
+});
+}
 
 $(document).ready(function() {
     $('.display').DataTable({ responsive: true });

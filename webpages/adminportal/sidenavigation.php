@@ -1,6 +1,15 @@
 <?php 
 $url = basename($_SERVER['PHP_SELF']);
 session_start();
+
+include '../database/dbsql.php';
+$id = $_SESSION['branchid'];
+$branch_query = ("SELECT * FROM `tbl_branch` WHERE branchid = $id");
+$branch_data = mysqli_query($conn, $branch_query);
+
+while ($row = mysqli_fetch_assoc($branch_data)) {
+    $branchname = $row["branchname"];
+}
 ?>
 
 <aside id="sidenav" class="menu animate__animated animate__fadeIn__faster">
@@ -9,13 +18,12 @@ session_start();
 
             <p class="menu-label employee-identification">
                 <?php if($_SESSION['usertype'] == "admin") { echo "Administrator"; } else { echo "error account"; } ?> </br>
-                <strong><?php echo $_SESSION['name'] . " " . $_SESSION['lastname'] ?></strong> 
+                <strong><?php echo $_SESSION['name'] . " " . $_SESSION['lastname'] ?></strong> </br>
+                <strong>(<?php echo $branchname ?>)</strong> 
             </p>
 
             <div class="list-view">
-
-                <p class="menu-label"> general</p>
-
+                <p class="menu-label"> General</p>
                 <ul class="menu-list">
                     <li>
                         <?php sidenav($url, "adminportal-dashboard.php", "Dashboard", "fa-tachometer-alt")?>
@@ -26,32 +34,73 @@ session_start();
 
                 <ul class="menu-list">
                     <li>
-                        <?php sidenav($url, "adminportal-inventory.php", "Manage Inventory", "fa-tachometer-alt")?>
+                        <?php sidenav($url, "adminportal-stock.php", "Manage Stock", "fa-box-open");
+                        if ($url == 'adminportal-stock.php' || $url == 'adminportal-stock-addstock.php'  ) { ?>
+                        <ul>
+                            <li>
+                                <?php sidenav($url, "adminportal-stock-addstock.php", "Add New Stock", "fa-plus-circle"); } ?>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="menu-list">
+                    <li>
+                        <?php sidenav($url, "adminportal-inventory.php", "Inventory Logs", "fa-tachometer-alt");
+                        if ($url == 'adminportal-inventory.php' || $url == 'adminportal-inventory-addinventory.php' ) { ?>
+                        <ul>
+                            <li>
+                                <?php sidenav($url, "adminportal-inventory-addinventory.php", "Add New Inventory", "fa-plus-circle"); } ?>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
 
                 <ul class="menu-list">
                     <li>
                         <?php sidenav($url, "adminportal-product.php", "Manage Product", "fa-archive"); 
-                        if ($url == 'adminportal-product.php' || $url == 'adminportal-product-addproduct.php' || $url == 'adminportal-category.php' || $url == 'adminportal-category-addcategory.php' ) { ?>
-                        <ul>
-                            <li>
-                                <?php sidenav($url, "adminportal-category.php", "Product Category", "fa-grip-lines"); ?>
-
-                            </li>
-
-                        </ul>
-                        <ul>
-                            <li>
-                                <?php sidenav($url, "adminportal-category-addcategory.php", "Add new Category", "fa-plus-circle "); ?>
-                            </li>
-                        </ul>
+                        if ($url == 'adminportal-product.php' || $url == 'adminportal-product-addproduct.php' ) { ?>
                         <ul>
                             <li>
                                 <?php sidenav($url, "adminportal-product-addproduct.php", "Add New Product", "fa-plus-circle"); } ?>
                             </li>
                         </ul>
-                        
+                    </li>
+                </ul>
+
+                <ul class="menu-list">
+                    <li>
+                        <?php sidenav($url, "adminportal-category.php", "Product Category", "fa-grip-lines");
+                        if ($url == 'adminportal-category.php' || $url == 'adminportal-category-addcategory.php') { ?>
+                        <ul>
+                            <li>
+                            <?php sidenav($url, "adminportal-category-addcategory.php", "Add new Category", "fa-plus-circle"); } ?>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="menu-list">
+                    <li>
+                        <?php sidenav($url, "adminportal-supplier.php", "Supplier", "fa-truck-loading")?>
+                        <?php if ($url == 'adminportal-supplier.php' || $url == "adminportal-supplier-addsupplier.php") { ?>
+                        <ul>
+                            <li>
+                            <?php sidenav($url, "adminportal-supplier-addsupplier.php", "Add New Supplier", "fa-user-plus"); } ?>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="menu-list">
+                    <li>
+                        <?php sidenav($url, "adminportal-receiving.php", "Receiving", "fa-truck");
+                        if ($url == 'adminportal-receiving.php' || $url == 'adminportal-receiving-addnewreceiving.php' ) { ?>
+                        <ul>
+                            <li>
+                                <?php sidenav($url, "adminportal-receiving-addnewreceiving.php", "Add New Receiving ", "fa-plus-circle"); } ?>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
 

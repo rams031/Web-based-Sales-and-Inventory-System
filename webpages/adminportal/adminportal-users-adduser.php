@@ -50,14 +50,14 @@ $data = mysqli_query($conn, $branch_data);
                     </div>
                     <div class="columns">
                         <div class="column">
-                            <div class="field">
-                                <label class="label">Account Username</label>
-                                <div class="control">
-                                    <input name="username" id="username" class="input" type="text" placeholder="Username" required>
-                                </div>
-                                <p id="available" class="help is-success">This username is Available</p>
-                                <p id="existing" class="help is-danger">This username is Existing</p>
+                        <div class="field ">
+                            <label class="label">Account Username</label>
+                            <div class="control">
+                                <input name="username" id="username" class="input" type="text" placeholder="Username" required>
                             </div>
+                            <p id="available" class="help is-success">This username is Available</p>
+                            <p id="existing" class="help is-danger">This username is Existing</p>
+                        </div>
                         </div>
                         <div class="column">
                             <div class="field">
@@ -73,7 +73,7 @@ $data = mysqli_query($conn, $branch_data);
                             <div class="field">
                                 <label class="label">Gender</label>
                                 <div class="control">
-                                    <div class="select">
+                                    <div class="select is-fullwidth">
                                         <select name="usergender" id="usergender" required>
                                             <option value="" disabled selected>Choose Gender</option>
                                             <option value="male">Male</option>
@@ -87,7 +87,7 @@ $data = mysqli_query($conn, $branch_data);
                             <div class="field">
                                 <label class="label">Account Usertype</label>
                                 <div class="control">
-                                    <div class="select">
+                                    <div class="select is-fullwidth">
                                         <select name="usertype" id="usertype" required=true>
                                             <option value="" disabled selected>Choose Usertype</option>
                                             <option value="sales">Sales</option>
@@ -96,12 +96,12 @@ $data = mysqli_query($conn, $branch_data);
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="column is-2 Dropdown-usertype">
+                              </div>
+                        <div class="column is-3 Dropdown-usertype">
                             <div class="field">
                                 <label class="label">Assign to What Branch</label>
                                 <div class="control">
-                                    <div class="select">
+                                    <div class="select is-fullwidth salesbranch">
                                         <select name="userbranch" id="userbranch" required>
                                             <option value="" disabled selected>Choose Branch to Assign</option>
                                             <?php while ($row = mysqli_fetch_assoc($data)) { ?>
@@ -111,12 +111,13 @@ $data = mysqli_query($conn, $branch_data);
                                     </div>
                                 </div>
                             </div>
+                            <p id="error" class="help is-danger">Branch has already assigned a sales person. Make sure to make another branch</p>
                         </div>
-                        <div class="column is-2 Dropdown-usertype-main">
+                        <div class="column is-3 Dropdown-usertype-main">
                             <div class="field">
                                 <label class="label">Assign to What Branch</label>
                                 <div class="control">
-                                    <div class="select">
+                                    <div class="select is-fullwidth mainbranch">
                                         <select name="mainbranch" id="mainbranch" required>
                                             <option value="" disabled selected>Choose Branch to Assign</option>
                                             <?php while ($row = mysqli_fetch_assoc($main_data)) { ?>
@@ -126,24 +127,17 @@ $data = mysqli_query($conn, $branch_data);
                                     </div>
                                 </div>
                             </div>
+                            <p id="errormain" class="help is-danger">Branch has already assigned a sales person. Make sure to make another branch</p>
+                       
                         </div>
                         <div class="column">
                             <div class="field">
                                 <label class="label">Contact Number</label>
                                 <div class="control">
-                                    <div class="field has-addons">
-                                        <p class="control">
-                                            <a class="button is-static">
-                                                +69
-                                            </a>
-                                        </p>
-                                        <p class="control is-expanded">
-                                            <input name="usercontact" id="usercontact" type="tel" maxlength="11" class="input" placeholder="Phone Number" required>
-                                        </p>
-                                    </div>
+                                    <input name="usercontact" id="usercontact" type="text" class="input" minlength="8" placeholder="Phone Number" required>
                                 </div>
                             </div>
-                        </div>
+                         </div>
                     </div>
                     <div class="columns">
                         <div class="column">
@@ -166,13 +160,83 @@ $data = mysqli_query($conn, $branch_data);
 
 <script>
 $(document).ready(function() {
+
+    var username = false;
+    var branchtype = false;
+
+    $("#error").hide();
+    $("#errormain").hide();
+    $('#usertype').prop("disabled",true);
+
+    $('#usercontact').on("input", function () {     
+        if (this.value.length > 11)         
+            this.value = this.value.slice(0,11); 
+    });
+
+    $("#usertype").change(function() {
+        $('#Submit').prop("disabled",false);
+        $("#error").hide();
+        $(".salesbranch").removeClass("is-danger")
+    });
+
+
+    $("#userbranch").change(function() {
+        var branchid = $("#userbranch").val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '../../phpaction/salesbranch-validation.php',
+            data: {
+                branchid: branchid,
+            },
+            success: function(data) {
+                if (data === "existing") {
+                    $('#Submit').prop("disabled",true);
+                    $("#error").show();
+                    $(".salesbranch").addClass("is-danger");
+                } else if (data === "available") {
+                    $('#Submit').prop("disabled",false);
+                    $("#error").hide();
+                    $(".salesbranch").removeClass("is-danger")
+                    branchtype = true;
+                    
+                }
+            }
+        });
+    });
+
+    $("#mainbranch").change(function() {
+        var branchid = $("#mainbranch").val();
+        
+        $.ajax({
+            type: 'POST',
+            url: '../../phpaction/salesbranch-validation.php',
+            data: {
+                branchid: branchid,
+            },
+            success: function(data) {
+                if (data === "existing") {
+                    $('#Submit').prop("disabled",true);
+                    $("#errormain").show();
+                    $(".mainbranch").addClass("is-danger");
+                } else if (data === "available") {
+                    $('#Submit').prop("disabled",false);
+                    $("#errormain").hide();
+                    $(".mainbranch").removeClass("is-danger")
+                    
+                }
+            }
+        });
+    });
+
+
     $(".Dropdown-usertype").hide();
     $(".Dropdown-usertype-main").hide();
     $("#available").hide();
     $("#existing").hide();
     $('#Submit').prop("disabled",true);
+
     $("#usertype").change(function() {
-        console.log($("#usertype").val())
         if ($("#usertype").val() == "sales") {
             $(".Dropdown-usertype").show(500);
             $(".Dropdown-usertype-main").hide(500);
@@ -185,11 +249,13 @@ $(document).ready(function() {
             $("#mainbranch").attr('required', 'required')
         } 
     });
+
     $(".navbar-burger").click(function() {
         $(".navbar-burger").toggleClass("is-active");
         $(".navbar-menu").toggleClass("is-active");
     });
-    $("#username").bind('input', function() {
+
+    $("input").bind('input', function() {
         var username = $("#username").val();
         $.ajax({
             type: 'POST',
@@ -198,7 +264,6 @@ $(document).ready(function() {
                 username: username
             },
             success: function(data) {
-                console.log(data)
                 if (username === "") {
                     $("#available").hide();
                     $("#existing").hide();
@@ -213,6 +278,7 @@ $(document).ready(function() {
                         $("#username").removeClass("is-success").addClass("is-danger");
                     } else if (data === "available") {
                         $('#Submit').prop("disabled",false);
+                        $('#usertype').prop("disabled",false);
                         $("#existing").hide();
                         $("#available").show();
                         $("#username").removeClass("is-danger").addClass("is-success");
@@ -222,9 +288,9 @@ $(document).ready(function() {
             }
         });
     });
+
     $('form').on('submit', function(event) {
         event.preventDefault();
-        console.log($('form').serialize())
         $.ajax({
             type: 'POST',
             url: '../../phpaction/addnewuser.php',
@@ -242,7 +308,6 @@ $(document).ready(function() {
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
-                    console.log(data)
                 }
             },
         });

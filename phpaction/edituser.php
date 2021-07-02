@@ -2,42 +2,27 @@
 
     include '../database/dbsql.php';
     
-    $admin = "main";
-    $username = $_POST['username'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $userpassword = $_POST['userpassword']; 
     $usercontact = $_POST['usercontact'];
-    $usertype = $_POST['usertype'];
-    $userbranch = $_POST['userbranch'];
     $usergender = $_POST['usergender'];
+    $userpassword = $_POST['userpassword'];
+    $username = $_POST['username'];
+    $lastname = $_POST['lastname'];
+    $firstname = $_POST['firstname'];
+    $userid = $_POST['userid'];
 
 
-    $insert_sales = (
+    $update_user = (
 
-        "INSERT INTO 
-            `tbl_users` (
-            `username`, 
-            `userpassword`, 
-            `datecreated`, 
-            `contacts`, 
-            `usertype`, 
-            `branchid`, 
-            `firstname`, 
-            `lastname`, 
-            `gender`)
-        VALUES (
-            '$username',
-            '$userpassword',
-             CURDATE(),
-            '$usercontact',
-            '$usertype',
-            '$userbranch',
-            '$firstname',
-            '$lastname',
-            '$usergender')"
+        "UPDATE `tbl_users`
+        SET    
+               `username` = '$username',
+               `userpassword` = '$userpassword',
+               `contacts` = '$usercontact',
+               `firstname` = '$firstname',
+               `lastname` = '$lastname'
+        WHERE  userid =  $userid"
 
     );
 
-    query($insert_sales,$conn)
+    query($update_user,$conn)
 ?>

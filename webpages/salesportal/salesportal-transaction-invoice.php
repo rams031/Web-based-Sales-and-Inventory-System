@@ -3,8 +3,8 @@ include "header.php";
 $transactionid = $_GET['transactionid'];
 
 $order_query= ("SELECT * FROM `tbl_order` 
-JOIN `tbl_inventory` ON tbl_order.inventoryid=tbl_inventory.inventoryid  
-JOIN `tbl_product` ON tbl_inventory.productid=tbl_product.productid  
+JOIN `tbl_stock` ON tbl_order.stockid=tbl_stock.stockid
+JOIN `tbl_product` ON tbl_stock.productid=tbl_product.productid   
 where tbl_order.transactionid = $transactionid && tbl_order.branchid = $branchid");
 $order_data = mysqli_query($conn, $order_query); 
 
@@ -57,7 +57,7 @@ while ($row = mysqli_fetch_assoc($transaction_data)) {
                         <table class="table tabletransaction" style="width:100%">
                         <thead>
                           <tr>
-                            <th>Inventory ID</th>
+                            <th>Order ID</th>
                             <th>Product Name</th>
                             <th>Order Quantity</th>
                             <th>Order Price</th>
@@ -68,7 +68,7 @@ while ($row = mysqli_fetch_assoc($transaction_data)) {
                         <tbody>
                         <?php while ($rowfield = mysqli_fetch_assoc($order_data)) { ?>
                           <tr>
-                              <td><?php echo $rowfield["inventoryid"]; ?></td>
+                              <td><?php echo $rowfield["orderid"]; ?></td>
                               <td><?php echo $rowfield["productname"]; ?></td>
                               <td><?php echo $rowfield["orderquantity"]; ?></td>
                               <td><?php echo $rowfield["productprice"]; ?></td>

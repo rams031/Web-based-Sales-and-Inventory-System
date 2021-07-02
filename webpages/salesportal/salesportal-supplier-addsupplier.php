@@ -1,4 +1,9 @@
-<?php include "header.php" ?>
+<?php include "header.php";
+
+$branch_query = ("SELECT * FROM `tbl_branch` where branchtype = 'main'");
+$branch_data = mysqli_query($conn, $branch_query); 
+
+?>
 <!-- header.php / nanjan ung header natin  nandito narin yung top navigation sa loob nito-->
 
 <!-- BRANCH STOCK-->
@@ -27,29 +32,16 @@
                     <div class="columns">
                         <div class="column">
                             <div class="field">
-                                <label class="label">Supplier Name</label>
+                                <label class="label">Supplier <small>(Main Branch)</small></label>
                                 <div class="control">
-                                    <input name="suppliername" id="suppliername" class="input" type="text" placeholder="Supplier Name" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column">
-                            <div class="field">
-                                <label class="label">Supplier Address</label>
-                                <div class="control">
-                                    <textarea name="supplieraddress" id="supplieraddress" class="textarea" placeholder="Supplier Address" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column">
-                            <div class="field">
-                                <label class="label">Supplier Contact</label>
-                                <div class="control">
-                                    <input name="suppliercontact" id="suppliercontact" class="input" type="number" placeholder="Supplier Contact" required>
+                                    <div class="select is-fullwidth">
+                                        <select name="supplierid" id="supplierid" required>
+                                            <option value="" disabled selected>Choose Supplier</option>
+                                            <?php while ($row = mysqli_fetch_assoc($branch_data)) { ?>
+                                            <option value="<?php echo $row["branchid"] ?>"> (Main Branch) <?php echo $row["branchname"] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +54,6 @@
                             </div>
                         </div>
                     </div>
-                   
                     <div class="columns">
                         <div class="column">
                             <div class="submit-button field is-grouped is-grouped-right">
@@ -87,16 +78,26 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
     });
 
-    console.log($('form').serialize())
     $('form').on('submit', function(event) {
-
+        var suppliername =  '';
+        var supplieraddress =  '';
+        var suppliercontact =  '';
+        var supplierid = $("#supplierid").val();
+        var branchid = $("#branchid").val();
+        var supplierdate =$("#supplierdate").val();
         event.preventDefault();
-        console.log($('form').serialize())
 
         $.ajax({
             type: 'POST',
-            url: '../../phpaction/addnewsupplier.php',
-            data: $('form').serialize(),
+            url: '../../phpaction/addnewsupplierbranch.php',
+            data: {
+                   suppliername:suppliername,
+                   supplieraddress:supplieraddress,
+                   suppliercontact:suppliercontact,
+                   supplierid:supplierid,
+                   branchid:branchid,
+                   supplierdate:supplierdate
+                  },
             success: function(data) {
                 if (data === "success") {
                     swal("Supplier Data Saved", "Succesfully", "success", {
@@ -108,7 +109,6 @@ $(document).ready(function() {
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
-                    console.log(data)
                 }
             },
         });

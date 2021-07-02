@@ -1,8 +1,8 @@
 <?php include "header.php";
 $productid = $_GET['productid'];
-$product_query = 
-("SELECT * FROM `tbl_product`
+$product_query = ("SELECT * FROM `tbl_product`
 JOIN `tbl_category` ON tbl_product.categoryid=tbl_category.categoryid WHERE tbl_product.productid = $productid");
+
 $category_query = ("SELECT * FROM `tbl_category`
 JOIN `tbl_product` ON tbl_product.categoryid=tbl_category.categoryid WHERE tbl_product.productid != $productid GROUP BY categoryname");
 $product_data = mysqli_query($conn, $product_query); 
@@ -18,7 +18,31 @@ $category_data = mysqli_query($conn, $category_query);
         <!-- sidenavigation.php / d2 ung tab sa leftside -->
     </div>
 
-    <div class="column is-10 ">
+    <div class="column is-10">
+        <div class="crumblerows animate__animated animate__fadeInDown">
+            <div class="crumblerow">
+                <div class="breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li>
+                            <a href="adminportal-product.php">
+                                <span class="icon is-small">
+                                    <i class="fas fa-archive " aria-hidden="true"></i>
+                                </span>
+                                <span>Manage Product</span>
+                            </a>
+                        </li>
+                        <li class="is-active">
+                            <a disabled>
+                                <span class="icon is-small">
+                                    <i class="fas fa-edit" aria-hidden="true"></i>
+                                </span>
+                                <span>Edit Product</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="rows card is-shadowless animate__animated animate__fadeInDown">
             <div class="row">
                 <div class="columns">
@@ -128,11 +152,9 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
     });
 
-    console.log($('form').serialize())
     $('form').on('submit', function(event) {
 
         event.preventDefault();
-        console.log($('form').serialize())
 
         $.ajax({
             type: 'POST',
@@ -149,7 +171,6 @@ $(document).ready(function() {
                     }, 2000);
                 } else {
                     swal("Database Error", "Make sure the input is correct", "error")
-                    console.log(data)
                 }
             },
         });
